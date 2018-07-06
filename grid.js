@@ -4,8 +4,8 @@ function Grid()
   {  
     this.grid = [];
     
-    let columnCount = 30;
-    let rowCount = 20;
+    this.columnCount = 30;
+    this.rowCount = 20;
 
     for (let y = 0; y < rowCount; y++)
     {
@@ -34,20 +34,20 @@ function Grid()
         div.style.height = rowDiv.offsetHeight + 'px';
       }
     }
-  }
+  };
   
   this.generateMap()
   {
-    for ()
+    for (let x = 0; x < this.columnCount; x++)
     {
       
     }
-  }
+  };
 
   this.setCellValue = function(x, y, value)
   {
     this.grid[x][y].innerHtml = value;
-  }
+  };
 }
 
 var grid = new Grid();
