@@ -18,7 +18,7 @@ function Grid()
       document.getElementsByTagName('body')[0].appendChild(rowDiv);
       
       rowDiv.style.width = '90vw';
-      rowDiv.style.height = rowDiv.offsetWidth / columnCount + 'px';
+      rowDiv.style.height = rowDiv.offsetWidth / this.columnCount + 'px';
       
       for (let x = 0; x < this.columnCount; x++)
       {
