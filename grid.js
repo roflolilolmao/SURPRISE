@@ -7,7 +7,7 @@ function Grid()
     this.columnCount = 30;
     this.rowCount = 20;
 
-    for (let y = 0; y < rowCount; y++)
+    for (let y = 0; y < this.rowCount; y++)
     {
       let rowDiv = document.createElement('div');
       this.grid.push([]);
@@ -20,7 +20,7 @@ function Grid()
       rowDiv.style.width = '90vw';
       rowDiv.style.height = rowDiv.offsetWidth / columnCount + 'px';
       
-      for (let x = 0; x < columnCount; x++)
+      for (let x = 0; x < this.columnCount; x++)
       {
         let div = document.createElement('div');
         this.grid[y].push(div);
