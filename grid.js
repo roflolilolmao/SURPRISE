@@ -36,7 +36,7 @@ function Grid()
     }
   };
   
-  this.generateMap()
+  this.generateMap = function()
   {
     for (let x = 0; x < this.columnCount; x++)
     {
