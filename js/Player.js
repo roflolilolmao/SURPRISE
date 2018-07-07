@@ -59,7 +59,7 @@ function Player (){
   };
 
   this.triggerAttackAnimation = function (){
-    let container = gMap.getCellDOM(this.position)
+    let container = gMap.getCellDOM(this.position);
     let animationsArr = [];
 
     for (let i = 0; i < 4; i++){
@@ -71,9 +71,20 @@ function Player (){
       newAnimation.style.width = "100%";
       newAnimation.style.height = "100%";
       newAnimation.style.transform = "rotate(" + (i * 90) + "deg)";
-      
+      newAnimation.style.lineHeight = container.offsetHeight + "px";
+
       animationsArr.push(newAnimation);
     }
+    animationsArr[1].style.top = (2*container.offsetHeight*-1) + "px";
+    animationsArr[1].style.left = (container.offsetWidth*-1) + "px";
+    animationsArr[2].style.top = (4*container.offsetHeight*-1) + 8 + "px";
+    animationsArr[3].style.top = (4*container.offsetHeight*-1) + 8 + "px";
+    animationsArr[3].style.right = (container.offsetWidth*-1) + "px";
+    this.animateFists(animationsArr);
+  };
+
+  this.animateFists = function (arr){
+    
   };
 
   this.attack = function (){
