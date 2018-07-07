@@ -164,14 +164,14 @@ function Map()
       walls.splice(index, 1);
     }
   };
+  
+  this.compareCells = function(a, b)
+  {
+    return a.x == b.x && a.y == b.y;
+  };
 
   this.pathFinding = function(start, end)
   {
-    let compareCells = function(a, b)
-    {
-      return a.x == b.x && a.y == b.y;
-    };
-
     let addVector = function(cell, v)
     {
       return {
@@ -202,22 +202,18 @@ function Map()
           {
             let neighbour = addVector(cell, direction);
 
-            if (
-                neighbour.x > this_.columnCount ||
-                neighbour.x < 0 ||
-                neighbour.y > this_.rowCount ||
-                neighbour.y < 0)
+            if (this_.outOfBounds(neighbour))
               return;
 
             if (this_.getCellValue(neighbour.x, neighbour.y) == 'wall')
               return;
 
             for (let i = 0; i < closedCells.length; i++)
-              if (compareCells(closedCells[i], neighbour))
+              if (this_.compareCells(closedCells[i], neighbour))
                 return;
 
             for (let i = 0; i < openCells.length; i++)
-              if (compareCells(openCells[i], neighbour))
+              if (this_.compareCells(openCells[i], neighbour))
               {
                 if (openCells[i].score > neighbour.score)
                 {
@@ -254,13 +250,13 @@ function Map()
       currentCell = nextCell;
 
       for (let i = 0; i < openCells.length; i++)
-        if (compareCells(nextCell, openCells[i]))
+        if (this.compareCells(nextCell, openCells[i]))
         {
           openCells.splice(i, 1);
           break;
         }
 
-      if (compareCells(currentCell, end))
+      if (this.compareCells(currentCell, end))
         return currentCell;
 
       findAdjacentCells(currentCell);
@@ -279,6 +275,22 @@ function Map()
   this.getCellValue = function(x, y)
   {
     return this.grid[x][y].getAttribute('class').split(' ').slice(-1)[0];
+  };
+  
+  this.outOfBounds = function(cell)
+  {
+    let result = 
+        cell.x < 0 ||
+        cell.x >= this.columnCount ||
+        cell.y < 0 ||
+        cell.y >= this.rowCount;
+    return result;
+  }
+  
+  this.nextMap = function()
+  {
+    this.generateMap(this.exit.x);
+    return this.entry;
   };
 
   this.initGrid();

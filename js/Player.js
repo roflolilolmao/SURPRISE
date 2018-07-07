@@ -5,6 +5,11 @@ function Player (){
   this.damages = 1;
 
   this.spawnAtPosition = function(){
+    if (gMap.compareCells(this.position, gMap.exit))
+    {
+      this.position = gMap.nextMap();
+    }
+    
     gMap.setCellValue(this.position.x, this.position.y, 'player');
   };
 
@@ -20,7 +25,13 @@ function Player (){
   };
 
   this.move = function (x, y) {
-    let targetCellValue = gMap.getCellValue(this.position.x + x, this.position.y + y);
+    let targetCell = {x: this.position.x + x, y: this.position.y + y};
+    
+    if (gMap.outOfBounds(targetCell))
+      return;
+    
+    let targetCellValue = gMap.getCellValue(targetCell.x, targetCell.y);
+    
     if (targetCellValue === 'enemy'){
       this.takeDamages(1);
     }
