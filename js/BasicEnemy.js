@@ -2,7 +2,6 @@ function BasicEnemy () {
   this.maxHp = 1;
   this.hp = this.maxHp;
   this.position = {x : 0, y : 0};
-  this.moveStartTime = "";
 
   this.spawnAtPosition = function() {
     gMap.setCellValue(this.position, 'enemy');
@@ -33,16 +32,11 @@ function BasicEnemy () {
 
   this.play = function () {
     let himself = this;
+    let timeBetweenMoves = getRandomInt(50, 301);
 
     function selectRandomMove(timestamp) {
-      if (himself.moveStartTime  === ""){
-        himself.moveStartTime = timestamp;
-      }
-      console.log(himself.moveStartTime);
-      if (timestamp - himself.moveStartTime > 1) {
-        himself.moveStartTime = "";
-      }
-      else {
+      if (timestamp > timeBetweenMoves) {
+        timeBetweenMoves = Math.floor(timestamp) + getRandomInt(50, 301);
         switch (getRandomInt(0, 5)) {
           case 0 :
             break;
@@ -60,7 +54,8 @@ function BasicEnemy () {
             break;
         }
       }
-      requestAnimationFrame(selectRandomMove);
+      if (himself.hp > 0)
+        requestAnimationFrame(selectRandomMove);
     }
     selectRandomMove();
   };
@@ -68,12 +63,10 @@ function BasicEnemy () {
   this.move = function (x, y) {
     let targetCellValue = 
         gMap.getCellValue({x: this.position.x + x, y: this.position.y + y});
-    
-    if (targetCellValue !== 'wall' && targetCellValue !== 'powerup') {
 
+    if (targetCellValue !== 'wall' && targetCellValue !== 'powerup') {
       if (this.verifyIfPlayer(targetCellValue))
         return;
-
       this.clearPosition();
       this.position.x += x;
       this.position.y += y;
