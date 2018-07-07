@@ -15,7 +15,7 @@ function Grid()
       rowDiv.setAttribute('id', 'row_' + y);
       rowDiv.setAttribute('class', 'rows');
       
-      document.getElementsByTagName('body')[0].appendChild(rowDiv);
+      document.getElementById('game_container').appendChild(rowDiv);
       
       rowDiv.style.width = '90vw';
       rowDiv.style.height = rowDiv.offsetWidth / this.columnCount + 'px';
@@ -29,7 +29,7 @@ function Grid()
 
         div.setAttribute('id', 'grid_' + x + '_' + y);
         div.setAttribute('class', 'cell');
-        
+
         div.style.width = rowDiv.offsetHeight + 'px';
         div.style.height = rowDiv.offsetHeight + 'px';
       }
