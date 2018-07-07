@@ -61,6 +61,8 @@ function BasicEnemy () {
   };
 
   this.move = function (x, y) {
+    if (gMap.outOfBounds({x, y}))
+      return ;
     let targetCellValue = 
         gMap.getCellValue({x: this.position.x + x, y: this.position.y + y});
 
