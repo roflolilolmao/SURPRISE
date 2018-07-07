@@ -113,6 +113,7 @@ function Map()
 
   this.setCellValue = function(x, y, value)
   {
+    removeClass(this.grid[x][y], this.getCellValue(x, y));
     this.grid[x][y].innerHTML = this.asciiMap[value];
     addClass(this.grid[x][y], value);
   };
@@ -121,4 +122,7 @@ function Map()
   {
     return this.grid[x][y].getAttribute('class').split(' ').slice(-1)[0];
   };
+
+  this.initGrid();
+  this.generateMap();
 }
