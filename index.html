@@ -12,13 +12,16 @@
     var gScoreDiv;
     var gHpDiv;
     var gBasicEnemiesArr = [];
+    var gBossThreshold = 0.1;
   </script>
   <script src="js/tools.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/Player.js"></script>
   <script src="js/Keys.js"></script>
   <script src="js/PowerUp.js"></script>
+  <script src="js/GenericEnemy.js"></script>
   <script src="js/BasicEnemy.js"></script>
+  <script src="js/BossEnemy.js"></script>
   <script>
     window.onload = function(){
       gMap = new Map();
@@ -47,13 +50,20 @@
       for (let i = 0; i <= getRandomInt(3, 15); i++) {
         new PowerUp().spawner();
       }
-      for (let i = 0; i <= getRandomInt(3, 15); i++){
-        gBasicEnemiesArr.push(new BasicEnemy());
-        gBasicEnemiesArr.slice(-1)[0].spawner(); //bon trick en vrai.
+      for (let i = 0; i <= getRandomInt(3, 15); i++)
+      {
+        let enemy = 
+            Math.random() > gBossThreshold ?
+                new BasicEnemy():
+                new BossEnemy();
+        gBasicEnemiesArr.push(enemy);
+        enemy.spawner();
       }
       gBasicEnemiesArr.forEach(function (enemy){
         enemy.play();
       });
+      
+      gBossThreshold += 0.1;
     }
     function updateScore(){
       gScoreDiv.innerHTML = 'Score : ' + gScore;

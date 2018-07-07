@@ -33,7 +33,7 @@ function Player (){
     
     let targetCellValue = gMap.getCellValue(targetCell);
     
-    if (targetCellValue === 'enemy'){
+    if (gMap.cellContainsEnemy(targetCell)){
       this.takeDamages(1);
     }
     else if (targetCellValue !== 'wall') {
@@ -115,7 +115,7 @@ function Player (){
     
     let attackIfEnemyInRange = function(targetCell)
     {
-      if (gMap.getCellValue(targetCell) === 'enemy')
+      if (gMap.cellContainsEnemy(targetCell))
         this_.findEnemyToHitAndHit(targetCell);
     };
     

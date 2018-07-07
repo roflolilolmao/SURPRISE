@@ -6,7 +6,7 @@ function Map()
       'powerup': 'u',
       'player': 'R',
       'entry': 'p',
-      'nothing_yet': 'r',
+      'ruby': 'r',
       'boss': 'i',
       'door': 's',
       'enemy': 'e',
@@ -248,7 +248,6 @@ function Map()
     
     this.entry = {x: entry, y: 0};
     this.exit = {x: getRandomInt(1, this.columnCount - 1), y: this.rowCount - 1};
-    console.log(this.entry)
     this.setCellValue(this.entry, 'entry');
     this.setCellValue(this.exit, 'entry');
 
@@ -375,12 +374,21 @@ function Map()
   
   this.outOfBounds = function(cell)
   {
-    let result = 
+    return ( 
         cell.x < 0 ||
         cell.x >= this.columnCount ||
         cell.y < 0 ||
-        cell.y >= this.rowCount;
-    return result;
+        cell.y >= this.rowCount);
+  };
+  
+  this.cellContainsEnemy = function(cell)
+  {
+    let value_ = this.getCellValue(cell);
+    return (
+        value_ === 'enemy' ||
+        value_ === 'boss' ||
+        value_ === 'enemy_attacking'
+      );
   };
   
   this.nextMap = function()
