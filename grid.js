@@ -1,7 +1,9 @@
 function Map()
 {
-  this.wall = 'S';
-  this.door = 's';
+  this.asciiMap = {
+      'wall': 'S',
+      'door': 's'
+    };
     
   this.columnCount = 30;
   this.rowCount = 20;
@@ -49,23 +51,20 @@ function Map()
   {
     for (let x = 0; x < this.columnCount; x++)
     {
-      this.setCellValue(x, 0, this.wall);
-      this.setCellValue(x, this.rowCount - 1, this.wall);
-      addClass(this.grid[x][0], 'wall');
-      addClass(this.grid[x][this.rowCount - 1], 'wall');
+      this.setCellValue(x, 0, 'wall');
+      this.setCellValue(x, this.rowCount - 1, 'wall');
     }
     
     for (let y  = 0; y < this.rowCount; y++)
     {
-      this.setCellValue(0, y, this.wall);
-      this.setCellValue(this.columnCount - 1, y, this.wall);
-      addClass(this.grid[0][y], 'wall');
-      addClass(this.grid[this.columnCount - 1][y], 'wall');
+      this.setCellValue(0, y, 'wall');
+      this.setCellValue(this.columnCount - 1, y, 'wall');
      }
   };
 
   this.setCellValue = function(x, y, value)
   {
-    this.grid[x][y].innerHTML = value;
+    this.grid[x][y].innerHTML = this.asciiMap[value];
+    addClass(this.grid[x][y], value);
   };
 }
