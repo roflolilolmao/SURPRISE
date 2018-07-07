@@ -2,6 +2,7 @@ function Player (){
   this.maxHp = 15;
   this.hp = this.maxHp;
   this.damages = 1;
+  this.range = 1;
 
   this.spawnAtPosition = function(){
     if (gMap.compareCells(this.position, gMap.exit))
@@ -75,16 +76,34 @@ function Player (){
 
       animationsArr.push(newAnimation);
     }
-    animationsArr[1].style.top = (2*container.offsetHeight*-1) + "px";
-    animationsArr[1].style.left = (container.offsetWidth*-1) + "px";
+    animationsArr[0].style.top = -(container.offsetHeight) + "px";
+    animationsArr[1].style.top = -(2*container.offsetHeight) + "px";
+    animationsArr[1].style.left =  "0px";
     animationsArr[2].style.top = (4*container.offsetHeight*-1) + 8 + "px";
     animationsArr[3].style.top = (4*container.offsetHeight*-1) + 8 + "px";
     animationsArr[3].style.right = (container.offsetWidth*-1) + "px";
-    this.animateFists(animationsArr);
+    this.animateFists(container, animationsArr, this.range);
   };
 
-  this.animateFists = function (arr){
-    
+  this.animateFists = function (container, arr, range){
+    let start;
+    let pxRange = this.range * container.offsetHeight;
+
+    function punchIt(timestamp){
+      let progress;
+      if (!start)
+        start = timestamp;
+      progress = (timestamp - start) % pxRange;
+      arr[0].style.top = progress - container.offsetHeight + "px";
+      arr[1].style.left = -(progress) + "px";
+      arr[2].style.top = -(progress) - 3*container.offsetHeight + "px";
+      arr[3].style.left = progress + "px";
+
+      if (progress < pxRange){
+        window.requestAnimationFrame(punchIt);
+      }
+    }
+    window.requestAnimationFrame(punchIt);
   };
 
   this.attack = function (){
