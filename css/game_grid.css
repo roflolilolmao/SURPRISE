@@ -9,7 +9,6 @@
 .cell{
   border: 1px solid black;
   text-align: center;
-	font-family: "Trebuchet MS";
 }
 .cell:nth-child(odd){
   margin-left : -1px;

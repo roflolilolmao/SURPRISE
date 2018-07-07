@@ -11,7 +11,8 @@ function Map()
       'door': 's',
       'enemy': 'e',
       
-      'attacking': '👊'
+      'attacking': '👊',
+      'enemy_attacking': '✋'
     };
 
   this.columnCount = 30;
@@ -56,40 +57,26 @@ function Map()
     }
   };
 
-  this.generateWall = function(starting_point, direction)
+  this.generateWall = function(startingPoint, direction)
   {
-    let x = starting_point.x;
-    let y = starting_point.y;
-
+    let currentPoint = {x: startingPoint.x, y: startingPoint.y};
     while(
-        x >= 0 && x < this.columnCount &&
-        y >= 0 && y < this.rowCount &&
-        this.getCellValue(x, y) === 'empty')
+        !this.outOfBounds(currentPoint) &&
+        this.getCellValue(currentPoint) === 'empty')
     {
-      this.setCellValue(x, y, 'wall');
+      this.setCellValue(currentPoint, 'wall');
 
-      x += direction.x;
-      y += direction.y;
+      currentPoint.x += direction.x;
+      currentPoint.y += direction.y;
     }
   };
 
   this.generateRandomInnerWall = function()
   {
-    let randomPointInRange = function(small_x, big_x, small_y, big_y)
-    {
-      let randomValueInRange = function(small, big)
-      {
-        let range = big - small;
-        return Math.round(Math.random() * range) + small;
+    let roomCorner = {
+        x: getRandomInt(2, this.columnCount - 3),
+        y: getRandomInt(2, this.rowCount - 3)
       };
-
-      return {
-          x: randomValueInRange(small_x, big_x),
-          y: randomValueInRange(small_y, big_y)
-        };
-    };
-
-    let roomCorner = randomPointInRange(2, this.columnCount - 3, 2, this.rowCount - 3);
 
     let twoRandomDirections = function()
     {
@@ -122,7 +109,7 @@ function Map()
   {
     for (let x = 0; x < this.columnCount; x++)
       for (let y = 0; y < this.rowCount; y++)
-        this.setCellValue(x, y, 'empty');
+        this.setCellValue({x: x, y: y}, 'empty');
     
     this.generateWall(
         {x: 0, y: 0},
@@ -140,8 +127,8 @@ function Map()
     this.entry = {x: entry, y: 0};
     this.exit = {x: getRandomInt(1, this.columnCount - 1), y: this.rowCount - 1};
     
-    this.setCellValue(this.entry.x, this.entry.y, 'entry');
-    this.setCellValue(this.exit.x, this.exit.y, 'entry');
+    this.setCellValue(this.entry, 'entry');
+    this.setCellValue(this.exit, 'entry');
 
     for (let i = 0; i < getRandomInt(2, 5); i++)
       this.generateRandomInnerWall();
@@ -154,7 +141,7 @@ function Map()
     let walls = [];
     for (let x = 1; x < this.columnCount - 1; x++)
       for (let y = 1; y < this.rowCount - 1; y++)
-        if (this.getCellValue(x, y) == 'wall')
+        if (this.getCellValue({x: x, y: y}) == 'wall')
           walls.push({x: x, y: y});
 
     while(this.pathFinding(this.entry, this.exit) == null)
@@ -162,8 +149,8 @@ function Map()
       let index = getRandomInt(0, walls.length);
       let wall = walls[index];
 
-      if (this.getCellValue(wall.x, wall.y) == 'wall')
-        this.setCellValue(wall.x, wall.y, 'door');
+      if (this.getCellValue(wall) == 'wall')
+        this.setCellValue(wall, 'door');
       
       walls.splice(index, 1);
     }
@@ -209,7 +196,7 @@ function Map()
             if (this_.outOfBounds(neighbour))
               return;
 
-            if (this_.getCellValue(neighbour.x, neighbour.y) == 'wall')
+            if (this_.getCellValue(neighbour) == 'wall')
               return;
 
             for (let i = 0; i < closedCells.length; i++)
@@ -269,16 +256,16 @@ function Map()
     return null;
   };
 
-  this.setCellValue = function(x, y, value_)
+  this.setCellValue = function(cell, value_)
   {
-    removeClass(this.grid[x][y], this.getCellValue(x, y));
-    this.grid[x][y].innerHTML = this.asciiMap[value_];
-    addClass(this.grid[x][y], value_);
+    removeClass(this.grid[cell.x][cell.y], this.getCellValue(cell));
+    this.grid[cell.x][cell.y].innerHTML = this.asciiMap[value_];
+    addClass(this.grid[cell.x][cell.y], value_);
   };
 
-  this.getCellValue = function(x, y)
+  this.getCellValue = function(cell)
   {
-    return this.grid[x][y].getAttribute('class').split(' ').slice(-1)[0];
+    return this.grid[cell.x][cell.y].getAttribute('class').split(' ').slice(-1)[0];
   };
   
   this.outOfBounds = function(cell)

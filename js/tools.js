@@ -14,5 +14,5 @@ function removeClass(element, class_)
         return c != class_;
       });
   
-  element.setAttribute('class', classes);
+  element.setAttribute('class', classes.join(' '));
 }

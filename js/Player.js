@@ -10,11 +10,11 @@ function Player (){
       this.position = gMap.nextMap();
     }
     
-    gMap.setCellValue(this.position.x, this.position.y, 'player');
+    gMap.setCellValue(this.position, 'player');
   };
 
   this.clearPosition = function (){
-    gMap.setCellValue(this.position.x, this.position.y, 'empty');
+    gMap.setCellValue(this.position, 'empty');
   };
 
   this.verifyIfPowerUp = function(targetCellValue){
@@ -30,7 +30,7 @@ function Player (){
     if (gMap.outOfBounds(targetCell))
       return;
     
-    let targetCellValue = gMap.getCellValue(targetCell.x, targetCell.y);
+    let targetCellValue = gMap.getCellValue(targetCell);
     
     if (targetCellValue === 'enemy'){
       this.takeDamages(1);
@@ -51,26 +51,27 @@ function Player (){
       console.log('Game Over');
   };
 
-  this.findEnemyToHitAndHit = function (x, y){
-    gBasicEnemiesArr.filter(function (enemy){
-      return enemy.position.x === x && enemy.position.y === y;
-    })[0].takeDamages(this.damages);
+  this.findEnemyToHitAndHit = function (cell) {
+    let l = gBasicEnemiesArr.filter(function (enemy) {
+      return gMap.compareCells(enemy.position, cell);
+    });
+    l[0].takeDamages(this.damages);
   };
 
   this.attack = function (){
-    gMap.setCellValue(this.position.x, this.position.y, 'attacking');
+    gMap.setCellValue(this.position, 'attacking');
     
-    if (gMap.getCellValue(this.position.x + 1, this.position.y) === 'enemy'){
-      this.findEnemyToHitAndHit(this.position.x + 1, this.position.y);
-    }
-    if (gMap.getCellValue(this.position.x - 1, this.position.y) === 'enemy'){
-      this.findEnemyToHitAndHit(this.position.x - 1, this.position.y);
-    }
-    if (gMap.getCellValue(this.position.x, this.position.y + 1) === 'enemy'){
-      this.findEnemyToHitAndHit(this.position.x, this.position.y + 1);
-    }
-    if (gMap.getCellValue(this.position.x, this.position.y - 1) === 'enemy'){
-      this.findEnemyToHitAndHit(this.position.x, this.position.y - 1);
-    }
+    let this_ = this;
+    
+    let attackIfEnemyInRange = function(targetCell)
+    {
+      if (gMap.getCellValue(targetCell) === 'enemy')
+        this_.findEnemyToHitAndHit(targetCell);
+    };
+    
+    attackIfEnemyInRange({x: this.position.x + 1, y: this.position.y});
+    attackIfEnemyInRange({x: this.position.x - 1, y: this.position.y});
+    attackIfEnemyInRange({x: this.position.x, y: this.position.y + 1});
+    attackIfEnemyInRange({x: this.position.x, y: this.position.y - 1});
   }
 }
