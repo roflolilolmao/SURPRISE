@@ -47,6 +47,8 @@ function Player (){
   };
 
   this.attack = function (){
+    gMap.setCellValue(this.position.x, this.position.y, 'attacking');
+    
     if (gMap.getCellValue(this.position.x + 1, this.position.y) === 'enemy'){
       this.findEnemyToHitAndHit(this.position.x + 1, this.position.y);
     }

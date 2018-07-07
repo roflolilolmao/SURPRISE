@@ -9,7 +9,9 @@ function Map()
       'nothing_yet': 'r',
       'boss': 'i',
       'door': 's',
-      'enemy': 'e'
+      'enemy': 'e',
+      
+      'attacking': '👊'
     };
 
   this.columnCount = 30;
