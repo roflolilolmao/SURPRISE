@@ -69,13 +69,13 @@ function Map()
       {
         let range = big - small;
         return Math.round(Math.random() * range) + small;
-      }
+      };
       
       return {
           x: randomValueInRange(small_x, big_x),
           y: randomValueInRange(small_y, big_y)
-        }
-    }
+        };
+    };
     
     let roomCorner = randomPointInRange(2, this.columnCount - 3, 2, this.rowCount - 3);
     
@@ -84,7 +84,7 @@ function Map()
     let chooseDirection = function()
     {
       return Math.round(Math.random()) == 0 ? -1: 1;
-    }
+    };
     
     let direction_x = chooseDirection();
     let direction_y = chooseDirection();
