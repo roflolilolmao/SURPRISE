@@ -32,11 +32,11 @@ function BasicEnemy () {
 
   this.play = function () {
     let himself = this;
-    let timeBetweenMoves = getRandomInt(50, 301);
+    let timeBetweenMoves = getRandomInt(300, 801);
 
     function selectRandomMove(timestamp) {
       if (timestamp > timeBetweenMoves) {
-        timeBetweenMoves = Math.floor(timestamp) + getRandomInt(50, 301);
+        timeBetweenMoves = Math.floor(timestamp) + getRandomInt(300, 801);
         switch (getRandomInt(0, 5)) {
           case 0 :
             break;
