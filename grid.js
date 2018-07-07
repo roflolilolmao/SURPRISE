@@ -40,7 +40,7 @@ function Map()
         rowDiv.appendChild(div);
 
         div.setAttribute('id', 'grid_' + x + '_' + y);
-        div.setAttribute('class', 'cell');
+        div.setAttribute('class', 'cell empty');
 
         div.style.width = rowDiv.offsetHeight + 'px';
         div.style.height = rowDiv.offsetHeight + 'px';
@@ -49,21 +49,38 @@ function Map()
     }
   };
   
+  this.generateWall = function(starting_point, direction)
+  {
+    let x = starting_point.x;
+    let y = starting_point.y;
+    
+    while(
+        x >= 0 && x < this.columnCount &&
+        y >= 0 && y < this.rowCount &&
+        this.getCellValue(x, y) != 'wall')
+    {
+      this.setCellValue(x, y, 'wall');
+      
+      x += direction.x;
+      y += direction.y;
+    }
+  }
+  
   this.generateMap = function()
   {
-    // generateEnclosingWalls
-    for (let x = 0; x < this.columnCount; x++)
-    {
-      this.setCellValue(x, 0, 'wall');
-      this.setCellValue(x, this.rowCount - 1, 'wall');
-    }
-    
-    for (let y  = 0; y < this.rowCount; y++)
-    {
-      this.setCellValue(0, y, 'wall');
-      this.setCellValue(this.columnCount - 1, y, 'wall');
-    }
-
+    this.generateWall(
+        {x: 0, y: 0},
+        {x: 1, y: 0});
+    this.generateWall(
+        {x: 0, y: 1},
+        {x: 0, y: 1});
+    this.generateWall(
+        {x: this.columnCount - 1, y: this.rowCount - 1},
+        {x: 0, y: -1});
+    this.generateWall(
+        {x: this.columnCount - 2, y: this.rowCount - 1},
+        {x: -1, y: 0});
+        
     // generateRandomInnerRooms    
     let randomPointInRange = function(small_x, big_x, small_y, big_y)
     {
@@ -91,15 +108,6 @@ function Map()
     let direction_x = chooseDirection();
     let direction_y = chooseDirection();
     
-    for (let x = roomCorner.x; x > 0 && x < this.columnCount - 1; x += direction_x)
-    {
-      this.setCellValue(x, roomCorner.y, 'wall');
-    }
-    
-    for (let y = roomCorner.y; y > 0 && y < this.rowCount - 1; y += direction_y)
-    {
-      this.setCellValue(roomCorner.x, y, 'wall');
-    }
   };
 
   this.setCellValue = function(x, y, value)
