@@ -6,6 +6,8 @@ function Map()
       'powerup': 'u',
       'player': 'R',
       'entry': 'p',
+      'nothing_yet': 'r',
+      'boss': 'i',
       'door': 's',
       'enemy': 'e'
     };
@@ -60,7 +62,7 @@ function Map()
     while(
         x >= 0 && x < this.columnCount &&
         y >= 0 && y < this.rowCount &&
-        this.getCellValue(x, y) !== 'wall')
+        this.getCellValue(x, y) === 'empty')
     {
       this.setCellValue(x, y, 'wall');
 
