@@ -23,9 +23,27 @@
     window.onload = function(){
       gMap = new Map();
       gPlayer = new Player();
-      gPlayer.spawnAtPosition();
       gScoreDiv = document.getElementById('score');
       gHpDiv = document.getElementById('hp');
+      
+      nextMap();
+    }
+    function wipeMap()
+    {
+      gBasicEnemiesArr.forEach(
+          function(e)
+          {
+            e.hp = 0;
+          });
+      gBasicEnemiesArr = [];
+      gMap.wipe();
+    }
+    function nextMap()
+    {
+      wipeMap();
+      
+      gPlayer.position = gMap.nextMap();
+      gPlayer.spawnAtPosition();
       for (let i = 0; i <= getRandomInt(3, 15); i++) {
         new PowerUp().spawner();
       }
@@ -35,8 +53,8 @@
       }
       gBasicEnemiesArr.forEach(function (enemy){
         enemy.play();
-      })
-    };
+      });
+    }
     function updateScore(){
       gScoreDiv.innerHTML = 'Score : ' + gScore;
     }

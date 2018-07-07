@@ -17,6 +17,7 @@ function Map()
 
   this.columnCount = 30;
   this.rowCount = 20;
+  this.exit = {x: getRandomInt(1, this.columnCount - 1), y: this.rowCount - 1};
 
   this.initGrid = function()
   {
@@ -96,7 +97,7 @@ function Map()
 
     let twoRandomDirections = function()
     {
-      let possible_directions = [
+      let possibleDirections = [
           {x: 0, y: 1},
           {x: -1, y: 0},
           {x: 0, y: -1},
@@ -109,49 +110,65 @@ function Map()
         second = getRandomInt(0, 4);
 
       return [
-          possible_directions[first],
-          possible_directions[second]
+          possibleDirections[first],
+          possibleDirections[second]
         ];
     };
 
     let directions = twoRandomDirections();
-    let walls1 = this.createWallCoordinates(roomCorner, directions[0]);
     let perpendicularDirections = [
-        {x: directions[0].y, y: directions[0].x},
-        {x: -directions[0].y, y: -directions[0].x}
+        [
+            {x: directions[0].y, y: directions[0].x},
+            {x: -directions[0].y, y: -directions[0].x}
+          ],
+        [
+            {x: directions[1].y, y: directions[1].x},
+            {x: -directions[1].y, y: -directions[1].x}
+          ]
       ];
-    walls1 = walls1.map(
-        function(wall)
-        {
-          return {
-              x: wall.x, 
-              y: wall.y, 
-              p1: perpendicularDirections[0],
-              p2: perpendicularDirections[1]
-            };
-        });
+    let walls = 
+        this.createWallCoordinates(
+            roomCorner, 
+            directions[0]
+          ).map(
+              function(wall)
+              {
+                return {
+                    x: wall.x, 
+                    y: wall.y, 
+                    p0: perpendicularDirections[0][0],
+                    p1: perpendicularDirections[0][1],
+                    d0: directions[0],
+                    d1: {x: -directions[0].x, y: -directions[0].y}
+                  };
+              }
+            );
    
-    let walls2 = this.createWallCoordinates(
-        {x: roomCorner.x + directions[1].x, y: roomCorner.y + directions[1].y},
-        directions[1]);
-    perpendicularDirections = [
-        {x: directions[1].y, y: directions[1].x},
-        {x: -directions[1].y, y: -directions[1].x}
-      ];
-    walls2 = walls2.map(
-        function(wall)
-        {
-          return {
-              x: wall.x, 
-              y: wall.y, 
-              p1: perpendicularDirections[0],
-              p2: perpendicularDirections[1]
-            };
-        });
-    
+    walls = walls.concat(
+        this.createWallCoordinates(
+            {
+                x: roomCorner.x + directions[1].x, 
+                y: roomCorner.y + directions[1].y
+              },
+            directions[1]
+          ).map(
+              function(wall)
+              {
+                return {
+                    x: wall.x, 
+                    y: wall.y, 
+                    p0: perpendicularDirections[1][0],
+                    p1: perpendicularDirections[1][1],
+                    d0: directions[1],
+                    d1: {x: -directions[1].x, y: -directions[1].y}
+                  };
+              }
+            )
+      );
+  
     let this_ = this;
     
-    let validateWall = function(walls, direction)
+    let validateWall = function(walls)
     {
       let result = true;
       
@@ -159,20 +176,21 @@ function Map()
           function(wall)
           {
             if (
-                this_.getCellValue(this_.addVector(wall, wall.p1)) ==='wall' ||
-                this_.getCellValue(this_.addVector(wall, wall.p2)) ==='wall')
+                this_.getCellValue(this_.addVector(wall, wall.d0)) === 'door' ||
+                this_.getCellValue(this_.addVector(wall, wall.d0)) === 'entry' ||
+                this_.getCellValue(this_.addVector(wall, wall.d1)) === 'door' ||
+                this_.getCellValue(this_.addVector(wall, wall.d1)) === 'entry' ||
+                this_.getCellValue(this_.addVector(wall, wall.p0)) === 'wall' ||
+                this_.getCellValue(this_.addVector(wall, wall.p1)) === 'wall')
               result = false;
           });
           
       return result;
     };
     
-    let walls = walls1.concat(walls2);
-    
     if (
         walls.length == 0 ||
-        !validateWall(walls1, directions[0]) ||
-        !validateWall(walls2, directions[1]))
+        !validateWall(walls))
       return;
 
     this.generateWall(walls);
@@ -180,12 +198,12 @@ function Map()
     let randomCellOnWall = walls[getRandomInt(1, walls.length - 1)];
     
     let randomCellLeftOfWall = {
-        x: randomCellOnWall.x + randomCellOnWall.p1.x,
-        y: randomCellOnWall.y + randomCellOnWall.p1.y
+        x: randomCellOnWall.x + randomCellOnWall.p0.x,
+        y: randomCellOnWall.y + randomCellOnWall.p0.y
       };
     let randomCellRightOfWall = {
-        x: randomCellOnWall.x + randomCellOnWall.p2.x,
-        y: randomCellOnWall.y + randomCellOnWall.p2.y
+        x: randomCellOnWall.x + randomCellOnWall.p1.x,
+        y: randomCellOnWall.y + randomCellOnWall.p1.y
       };
       
     this.generateDoors(walls, randomCellLeftOfWall);
@@ -204,12 +222,15 @@ function Map()
     }
   };
   
-  this.generateMap = function(entry)
+  this.wipe = function()
   {
     for (let x = 0; x < this.columnCount; x++)
       for (let y = 0; y < this.rowCount; y++)
         this.setCellValue({x: x, y: y}, 'empty');
+  };
     
+  this.generateMap = function(entry)
+  {
     let walls = this.createWallCoordinates(
         {x: 0, y: 0},
         {x: 1, y: 0});
@@ -227,7 +248,7 @@ function Map()
     
     this.entry = {x: entry, y: 0};
     this.exit = {x: getRandomInt(1, this.columnCount - 1), y: this.rowCount - 1};
-    
+    console.log(this.entry)
     this.setCellValue(this.entry, 'entry');
     this.setCellValue(this.exit, 'entry');
 
@@ -252,7 +273,7 @@ function Map()
   
   this.pathFinding = function(start, end)
   {
-    let possible_directions = [
+    let possibleDirections = [
         {x: 0, y: 1},
         {x: -1, y: 0},
         {x: 0, y: -1},
@@ -267,7 +288,7 @@ function Map()
 
     let findAdjacentCells = function(cell)
     {
-      possible_directions.forEach(
+      possibleDirections.forEach(
           function(direction)
           {
             let neighbour = this_.addVector(cell, direction);
@@ -369,5 +390,4 @@ function Map()
   };
 
   this.initGrid();
-  this.generateMap(getRandomInt(1, this.columnCount - 1));
 }
