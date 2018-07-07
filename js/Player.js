@@ -21,7 +21,10 @@ function Player (){
 
   this.move = function (x, y) {
     let targetCellValue = gMap.getCellValue(this.position.x + x, this.position.y + y);
-    if (targetCellValue !== 'wall') {
+    if (targetCellValue === 'enemy'){
+      this.takeDamages(1);
+    }
+    else if (targetCellValue !== 'wall') {
       this.verifyIfPowerUp(targetCellValue);
       this.clearPosition();
       this.position.x += x;
