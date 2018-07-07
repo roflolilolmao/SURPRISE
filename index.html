@@ -8,11 +8,14 @@
   <script>
     var gMap = '';
     var gPlayer;
+    var gScore = 0;
+    var gScoreDiv;
   </script>
   <script src="js/tools.js"></script>
   <script src="grid.js"></script>
   <script src="js/Player.js"></script>
   <script src="js/Keys.js"></script>
+  <script src="js/PowerUp.js"></script>
   <script>
     window.onload = function(){
       gMap = new Map();
@@ -20,12 +23,19 @@
       gMap.generateMap();
       gPlayer = new Player();
       gPlayer.spawnAtPosition();
+      gScoreDiv = document.getElementById('score');
+      for (let i = 0; i <= getRandomInt(3, 15); i++) {
+        new PowerUp().spawner();
+      }
     };
+    function updateScore(){
+      gScoreDiv.innerHTML = 'Score : ' + gScore;
+    }
   </script>
 </head>
 <body>
   <header>
-    header here
+    <p id="score">Score : 0</p>
   </header>
   <nav>
     nav here

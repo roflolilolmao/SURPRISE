@@ -11,34 +11,20 @@ function Player (){
     gMap.setCellValue(this.position.x, this.position.y, 'empty');
   };
 
-  this.moveUp = function(){
-    if (gMap.getCellValue(this.position.x,this.position.y - 1) !== 'wall'){
-      this.clearPosition();
-      this.position.y--;
-      this.spawnAtPosition();
+  this.verifyIfPowerUp = function(targetCellValue){
+    if (targetCellValue === 'powerup'){
+      gScore += 10;
+      updateScore();
     }
   };
 
-  this.moveDown = function (){
-    if (gMap.getCellValue(this.position.x,this.position.y + 1) !== 'wall'){
+  this.move = function (x, y) {
+    let targetCellValue = gMap.getCellValue(this.position.x + x, this.position.y + y);
+    if (targetCellValue !== 'wall') {
+      this.verifyIfPowerUp(targetCellValue);
       this.clearPosition();
-      this.position.y++;
-      this.spawnAtPosition();
-    }
-  };
-
-  this.moveLeft = function(){
-    if (gMap.getCellValue(this.position.x - 1,this.position.y) !== 'wall'){
-      this.clearPosition();
-      this.position.x--;
-      this.spawnAtPosition();
-    }
-  };
-
-  this.moveRight = function(){
-    if (gMap.getCellValue(this.position.x + 1,this.position.y) !== 'wall'){
-      this.clearPosition();
-      this.position.x++;
+      this.position.x += x;
+      this.position.y += y;
       this.spawnAtPosition();
     }
   };

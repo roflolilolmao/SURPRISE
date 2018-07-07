@@ -4,7 +4,8 @@ function Map()
       'wall': 'S',
       'door': 's',
       'player': 'R',
-      'empty': ' '
+      'empty': ' ',
+      'powerup': 'u'
     };
     
   this.columnCount = 30;
