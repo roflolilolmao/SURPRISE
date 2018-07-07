@@ -5,13 +5,21 @@
   <title>SurpRise</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
   <link rel="stylesheet" href="css/game_grid.css" type="text/css">
+  <script>
+    var gMap = '';
+    var gPlayer;
+  </script>
   <script src="js/tools.js"></script>
   <script src="grid.js"></script>
+  <script src="js/Player.js"></script>
+  <script src="js/Keys.js"></script>
   <script>
     window.onload = function(){
-      var gMap = new Map();
+      gMap = new Map();
       gMap.initGrid();
       gMap.generateMap();
+      gPlayer = new Player();
+      gPlayer.spawnAtPosition();
     };
   </script>
 </head>

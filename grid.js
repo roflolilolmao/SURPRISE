@@ -2,7 +2,9 @@ function Map()
 {
   this.asciiMap = {
       'wall': 'S',
-      'door': 's'
+      'door': 's',
+      'player': 'R',
+      'empty': ' '
     };
     
   this.columnCount = 30;
