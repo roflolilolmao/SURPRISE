@@ -5,6 +5,7 @@ function Map()
       'wall': 'S',
       'powerup': 'u',
       'player': 'R',
+      'entry': 'p',
       'door': 's',
       'enemy': 'e'
     };
@@ -113,7 +114,7 @@ function Map()
         directions[1]);
   };
 
-  this.generateMap = function()
+  this.generateMap = function(entry)
   {
     this.generateWall(
         {x: 0, y: 0},
@@ -127,6 +128,12 @@ function Map()
     this.generateWall(
         {x: this.columnCount - 2, y: this.rowCount - 1},
         {x: -1, y: 0});
+    
+    this.entry = {x: entry, y: 0};
+    this.exit = {x: getRandomInt(1, this.columnCount - 1), y: this.rowCount - 1};
+    
+    this.setCellValue(this.entry.x, this.entry.y, 'entry');
+    this.setCellValue(this.exit.x, this.exit.y, 'entry');
 
     for (let i = 0; i < getRandomInt(2, 5); i++)
       this.generateRandomInnerWall();
@@ -135,22 +142,14 @@ function Map()
   };
 
   this.generateDoors = function()
-  {
-    let entry = getRandomInt(1, this.columnCount - 1);
-    let exit = getRandomInt(1, this.columnCount - 1);
-
-    this.setCellValue(entry, 0, 'door');
-    this.setCellValue(exit, this.rowCount - 1, 'door');
-    
+  {    
     let walls = [];
     for (let x = 1; x < this.columnCount - 1; x++)
       for (let y = 1; y < this.rowCount - 1; y++)
         if (this.getCellValue(x, y) == 'wall')
           walls.push({x: x, y: y});
 
-    while(this.pathFinding(
-        {x: entry, y: 0},
-        {x: exit, y: this.rowCount - 1}) == null)
+    while(this.pathFinding(this.entry, this.exit) == null)
     {
       let index = getRandomInt(0, walls.length);
       let wall = walls[index];
@@ -279,5 +278,5 @@ function Map()
   };
 
   this.initGrid();
-  this.generateMap();
+  this.generateMap(getRandomInt(1, this.columnCount - 1));
 }
