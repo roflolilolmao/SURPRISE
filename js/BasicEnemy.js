@@ -2,6 +2,7 @@ function BasicEnemy () {
   this.maxHp = 1;
   this.hp = this.maxHp;
   this.position = {x : 0, y : 0};
+  this.moveStartTime = "";
 
   this.spawnAtPosition = function() {
     gMap.setCellValue(this.position, 'enemy');
@@ -30,26 +31,38 @@ function BasicEnemy () {
     return false;
   };
 
-  this.playTurn = function () {
-    let numberOfMoves = getRandomInt(1, 4);
-    for(let i = 1; i < numberOfMoves; i++) {
-      switch (getRandomInt(0, 5)) {
-        case 0 :
-          return;
-        case 1 :
-          this.move(0, 1);
-          break;
-        case 2 :
-          this.move(0, -1);
-          break;
-        case 3 :
-          this.move(1, 0);
-          break;
-        case 4:
-          this.move(-1, 0);
-          break;
+  this.play = function () {
+    let himself = this;
+
+    function selectRandomMove(timestamp) {
+      if (himself.moveStartTime  === ""){
+        himself.moveStartTime = timestamp;
       }
+      console.log(himself.moveStartTime);
+      if (timestamp - himself.moveStartTime > 1) {
+        himself.moveStartTime = "";
+      }
+      else {
+        switch (getRandomInt(0, 5)) {
+          case 0 :
+            break;
+          case 1 :
+            himself.move(0, 1);
+            break;
+          case 2 :
+            himself.move(0, -1);
+            break;
+          case 3 :
+            himself.move(1, 0);
+            break;
+          case 4:
+            himself.move(-1, 0);
+            break;
+        }
+      }
+      requestAnimationFrame(selectRandomMove);
     }
+    selectRandomMove();
   };
 
   this.move = function (x, y) {
@@ -68,7 +81,7 @@ function BasicEnemy () {
     }
   };
 
-  this.die = function () {
+  this.die = function (){
     let himself = this;
     gBasicEnemiesArr.splice(gBasicEnemiesArr.findIndex(function (enemy) {
       return himself.position.x === enemy.position.x && himself.position.y === enemy.position.y;

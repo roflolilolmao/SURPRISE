@@ -33,20 +33,15 @@
         gBasicEnemiesArr.push(new BasicEnemy());
         gBasicEnemiesArr.slice(-1)[0].spawner(); //bon trick en vrai.
       }
+      gBasicEnemiesArr.forEach(function (enemy){
+        enemy.play();
+      })
     };
     function updateScore(){
       gScoreDiv.innerHTML = 'Score : ' + gScore;
     }
     function updateHp(){
       gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
-    }
-    function enemiesPlay(){
-      gBasicEnemiesArr.forEach(function(enemy){
-        enemy.playTurn();
-      });
-    }
-    function endTurn(){
-      enemiesPlay();
     }
   </script>
 </head>
