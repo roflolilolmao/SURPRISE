@@ -2,7 +2,24 @@
 }
 .rows{
   display: flex;
+  margin-bottom: -1px;
 }
 .cell{
   border: 1px solid black;
+}
+.cell:nth-child(odd){
+  margin-left : -1px;
+  margin-right : -1px;
+}
+.rows:nth-child(odd) .cell:nth-child(odd){
+  background: #898d91;
+}
+.rows:nth-child(odd) .cell:nth-child(even){
+  background: #4b4d4f;
+}
+.rows:nth-child(even) .cell:nth-child(even){
+  background: #898d91;
+}
+.rows:nth-child(even) .cell:nth-child(odd){
+  background: #4b4d4f;
 }
