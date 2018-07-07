@@ -68,5 +68,3 @@ function Map()
     this.grid[x][y].innerHTML = value;
   };
 }
-
-var map = new Map();
