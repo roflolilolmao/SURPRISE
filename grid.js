@@ -1,6 +1,7 @@
 function Map()
 {
   this.wall = 'S';
+  this.door = 's';
     
   this.columnCount = 30;
   this.rowCount = 20;
@@ -25,7 +26,9 @@ function Map()
       document.getElementById('game_container').appendChild(rowDiv);
       
       rowDiv.style.width = '90vw';
-      rowDiv.style.height = rowDiv.offsetWidth / this.columnCount + 'px';
+      let height = Math.ceil(rowDiv.offsetWidth / this.columnCount);
+      rowDiv.style.width = 30 * height + 'px';
+      rowDiv.style.height = height + 'px';
       
       for (let x = 0; x < this.columnCount; x++)
       {
@@ -53,7 +56,7 @@ function Map()
     {
       this.setCellValue(0, y, this.wall);
       this.setCellValue(this.columnCount - 1, y, this.wall);
-    }
+     }
   };
 
   this.setCellValue = function(x, y, value)
