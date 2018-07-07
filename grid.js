@@ -67,22 +67,8 @@ function Map()
     }
   }
   
-  this.generateMap = function()
+  this.generateRandomInnerWall = function()
   {
-    this.generateWall(
-        {x: 0, y: 0},
-        {x: 1, y: 0});
-    this.generateWall(
-        {x: 0, y: 1},
-        {x: 0, y: 1});
-    this.generateWall(
-        {x: this.columnCount - 1, y: this.rowCount - 1},
-        {x: 0, y: -1});
-    this.generateWall(
-        {x: this.columnCount - 2, y: this.rowCount - 1},
-        {x: -1, y: 0});
-        
-    // generateRandomInnerRooms    
     let randomPointInRange = function(small_x, big_x, small_y, big_y)
     {
       let randomValueInRange = function(small, big)
@@ -99,23 +85,57 @@ function Map()
     
     let roomCorner = randomPointInRange(2, this.columnCount - 3, 2, this.rowCount - 3);
     
-    this.setCellValue(roomCorner.x, roomCorner.y, 'wall');
-    
-    let chooseDirection = function()
+    let twoRandomDirections = function()
     {
-      return Math.round(Math.random()) == 0 ? -1: 1;
+      let possible_directions = [
+          {x: 0, y: 1},
+          {x: -1, y: 0},
+          {x: 0, y: -1},
+          {x: 1, y: 0}
+        ];
+      
+      let first = getRandomInt(0, 4);
+      let second = getRandomInt(0, 4);
+      while (first == second)
+        second = getRandomInt(0, 4);
+        
+      return [
+          possible_directions[first],
+          possible_directions[second]
+        ];
     };
     
-    let direction_x = chooseDirection();
-    let direction_y = chooseDirection();
+    let directions = twoRandomDirections();
+    this.generateWall(roomCorner, directions[0]);
+    this.generateWall(
+        {x: roomCorner.x + directions[1].x, y: roomCorner.y + directions[1].y},
+        directions[1]);
+  };
+  
+  this.generateMap = function()
+  {
+    this.generateWall(
+        {x: 0, y: 0},
+        {x: 1, y: 0});
+    this.generateWall(
+        {x: 0, y: 1},
+        {x: 0, y: 1});
+    this.generateWall(
+        {x: this.columnCount - 1, y: this.rowCount - 1},
+        {x: 0, y: -1});
+    this.generateWall(
+        {x: this.columnCount - 2, y: this.rowCount - 1},
+        {x: -1, y: 0});
     
+    for (let i = 0; i < getRandomInt(2, 5); i++)
+      this.generateRandomInnerWall();
   };
 
-  this.setCellValue = function(x, y, value)
+  this.setCellValue = function(x, y, value_)
   {
     removeClass(this.grid[x][y], this.getCellValue(x, y));
-    this.grid[x][y].innerHTML = this.asciiMap[value];
-    addClass(this.grid[x][y], value);
+    this.grid[x][y].innerHTML = this.asciiMap[value_];
+    addClass(this.grid[x][y], value_);
   };
   
   this.getCellValue = function(x, y)
