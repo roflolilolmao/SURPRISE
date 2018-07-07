@@ -1,5 +1,5 @@
 function BasicEnemy (){
-  this.maxHp = 15;
+  this.maxHp = 1;
   this.hp = this.maxHp;
   this.position = {x : 0, y : 0};
 
@@ -30,21 +30,24 @@ function BasicEnemy (){
   };
 
   this.playTurn = function (){
-    switch (getRandomInt(0, 5)){
-      case 0 :
-        return;
-      case 1 :
-        this.move(0, 1);
-        break;
-      case 2 :
-        this.move(0, -1);
-        break;
-      case 3 :
-        this.move(1, 0);
-        break;
-      case 4:
-        this.move(-1, 0);
-        break;
+    let numberOfMoves = getRandomInt(1, 4);
+    for(let i = 1; i < numberOfMoves; i++) {
+      switch (getRandomInt(0, 5)) {
+        case 0 :
+          return;
+        case 1 :
+          this.move(0, 1);
+          break;
+        case 2 :
+          this.move(0, -1);
+          break;
+        case 3 :
+          this.move(1, 0);
+          break;
+        case 4:
+          this.move(-1, 0);
+          break;
+      }
     }
   };
 
@@ -58,6 +61,21 @@ function BasicEnemy (){
       this.position.x += x;
       this.position.y += y;
       this.spawnAtPosition();
+    }
+  };
+
+  this.die =function (){
+    let himself = this;
+    gBasicEnemiesArr.splice(gBasicEnemiesArr.findIndex(function (enemy){
+      return himself.position.x === enemy.position.x && himself.position.y === enemy.position.y;
+    }), 1);
+    gMap.setCellValue(this.position.x, this.position.y, 'empty');
+  };
+
+  this.takeDamages = function (damages){
+    this.hp -= damages;
+    if (this.hp <= 0){
+      this.die();
     }
   };
 }

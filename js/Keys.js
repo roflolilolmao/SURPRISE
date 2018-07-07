@@ -3,16 +3,22 @@ document.onkeydown = function (e){
     gPlayer.move(0, -1);
     endTurn();
   }
-  if (e.key === 's'){
+  else if (e.key === 's'){
     gPlayer.move(0, 1);
     endTurn();
   }
-  if (e.key === 'a'){
+  else if (e.key === 'a'){
     gPlayer.move(-1, 0);
     endTurn();
   }
-  if (e.key === 'd'){
+  else if (e.key === 'd'){
     gPlayer.move(1, 0);
     endTurn();
   }
+  else if (e.key === 'q'){
+    gPlayer.attack();
+    endTurn();
+  }
+  else
+    console.log(e.key);
 };

@@ -2,6 +2,7 @@ function Player (){
   this.maxHp = 15;
   this.hp = this.maxHp;
   this.position = {x : 10, y : 10};
+  this.damages = 1;
 
   this.spawnAtPosition = function(){
     gMap.setCellValue(this.position.x, this.position.y, 'player');
@@ -34,5 +35,26 @@ function Player (){
     updateHp();
     if (this.hp <= 0)
       console.log('Game Over');
+  };
+
+  this.findEnemyToHitAndHit = function (x, y){
+    gBasicEnemiesArr.filter(function (enemy){
+      return enemy.position.x === x && enemy.position.y === y;
+    })[0].takeDamages(this.damages);
+  };
+
+  this.attack = function (){
+    if (gMap.getCellValue(this.position.x + 1, this.position.y) === 'enemy'){
+      this.findEnemyToHitAndHit(this.position.x + 1, this.position.y);
+    }
+    if (gMap.getCellValue(this.position.x - 1, this.position.y) === 'enemy'){
+      this.findEnemyToHitAndHit(this.position.x - 1, this.position.y);
+    }
+    if (gMap.getCellValue(this.position.x, this.position.y + 1) === 'enemy'){
+      this.findEnemyToHitAndHit(this.position.x, this.position.y + 1);
+    }
+    if (gMap.getCellValue(this.position.x, this.position.y - 1) === 'enemy'){
+      this.findEnemyToHitAndHit(this.position.x, this.position.y - 1);
+    }
   }
 }
