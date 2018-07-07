@@ -40,6 +40,7 @@ function Map()
 
         div.style.width = rowDiv.offsetHeight + 'px';
         div.style.height = rowDiv.offsetHeight + 'px';
+        div.style.lineHeight = rowDiv.offsetHeight + 'px';
       }
     }
   };

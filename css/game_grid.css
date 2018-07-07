@@ -3,14 +3,17 @@
 .rows{
   display: flex;
   margin-bottom: -1px;
+  justify-content: center;
+  align-items: center;
 }
 .cell{
   border: 1px solid black;
+  text-align: center;
 }
 .cell:nth-child(odd){
   margin-left : -1px;
   margin-right : -1px;
 }
 .wall{
-  background: red;
+  color : #2a2a2a;
 }
