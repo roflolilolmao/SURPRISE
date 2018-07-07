@@ -34,7 +34,7 @@ function Map()
       
       for (let x = 0; x < this.columnCount; x++)
       {
-        div = this.grid[x][y];
+        let div = this.grid[x][y];
         rowDiv.appendChild(div);
 
         div.setAttribute('id', 'grid_' + x + '_' + y);
