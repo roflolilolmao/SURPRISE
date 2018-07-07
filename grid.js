@@ -50,12 +50,16 @@ function Map()
     {
       this.setCellValue(x, 0, this.wall);
       this.setCellValue(x, this.rowCount - 1, this.wall);
+      addClass(this.grid[x][0], 'wall');
+      addClass(this.grid[x][this.rowCount - 1], 'wall');
     }
     
     for (let y  = 0; y < this.rowCount; y++)
     {
       this.setCellValue(0, y, this.wall);
       this.setCellValue(this.columnCount - 1, y, this.wall);
+      addClass(this.grid[0][y], 'wall');
+      addClass(this.grid[this.columnCount - 1][y], 'wall');
      }
   };
 
