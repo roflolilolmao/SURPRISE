@@ -86,21 +86,28 @@ function Player (){
   };
 
   this.animateFists = function (container, arr, range){
-    let start;
-    let pxRange = this.range * container.offsetHeight;
+    let start = null;
+    let pxRange = this.range * parseInt(container.offsetHeight);
+    let progress;
+    let actualRange;
 
     function punchIt(timestamp){
-      let progress;
-      if (!start)
+      if (start === null)
         start = timestamp;
-      progress = (timestamp - start) % pxRange;
+      actualRange = (timestamp - start);
+      progress = Math.floor((timestamp - start) / 2);
       arr[0].style.top = progress - container.offsetHeight + "px";
       arr[1].style.left = -(progress) + "px";
       arr[2].style.top = -(progress) - 3*container.offsetHeight + "px";
       arr[3].style.left = progress + "px";
-
       if (progress < pxRange){
         window.requestAnimationFrame(punchIt);
+      }
+      else {
+        arr.forEach(function (element){
+          element.remove();
+        });
+        arr = null;
       }
     }
     window.requestAnimationFrame(punchIt);
@@ -108,7 +115,6 @@ function Player (){
 
   this.attack = function (){
     this.triggerAttackAnimation();
-    //gMap.setCellValue(this.position, 'attacking');
     let this_ = this;
     
     let attackIfEnemyInRange = function(targetCell)
