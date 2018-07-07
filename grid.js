@@ -83,8 +83,7 @@ function Map()
     
     let chooseDirection = function()
     {
-      let lol = Math.round(Math.random())
-      return lol == 0 ? -1: 1;
+      return Math.round(Math.random()) == 0 ? -1: 1;
     }
     
     let direction_x = chooseDirection();
