@@ -68,20 +68,16 @@ function Player (){
       container.appendChild(newAnimation);
       newAnimation.innerHTML = "👊";
 
-      newAnimation.style.position = 'relative';
+      newAnimation.style.position = 'absolute';
       newAnimation.style.width = "100%";
       newAnimation.style.height = "100%";
       newAnimation.style.transform = "rotate(" + (i * 90) + "deg)";
       newAnimation.style.lineHeight = container.offsetHeight + "px";
-
       animationsArr.push(newAnimation);
     }
-    animationsArr[0].style.top = -(container.offsetHeight) + "px";
-    animationsArr[1].style.top = -(2*container.offsetHeight) + "px";
-    animationsArr[1].style.left =  "0px";
-    animationsArr[2].style.top = (4*container.offsetHeight*-1) + 8 + "px";
-    animationsArr[3].style.top = (4*container.offsetHeight*-1) + 8 + "px";
-    animationsArr[3].style.right = (container.offsetWidth*-1) + "px";
+    animationsArr[1].style.top = "0px";
+    animationsArr[2].style.top = "0px";
+    animationsArr[3].style.top = "0px";
     this.animateFists(container, animationsArr, this.range);
   };
 
@@ -96,9 +92,9 @@ function Player (){
         start = timestamp;
       actualRange = (timestamp - start);
       progress = Math.floor((timestamp - start) / 2);
-      arr[0].style.top = progress - container.offsetHeight + "px";
+      arr[0].style.top = progress + "px";
       arr[1].style.left = -(progress) + "px";
-      arr[2].style.top = -(progress) - 3*container.offsetHeight + "px";
+      arr[2].style.top = -(progress) + "px";
       arr[3].style.left = progress + "px";
       if (progress < pxRange){
         window.requestAnimationFrame(punchIt);
