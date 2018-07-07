@@ -5,7 +5,8 @@ function Map()
       'door': 's',
       'player': 'R',
       'empty': ' ',
-      'powerup': 'u'
+      'powerup': 'u',
+      'enemy': 'e'
     };
     
   this.columnCount = 30;

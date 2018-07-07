@@ -28,4 +28,11 @@ function Player (){
       this.spawnAtPosition();
     }
   };
+
+  this.takeDamages = function(damages){
+    this.hp -= damages;
+    updateHp();
+    if (this.hp <= 0)
+      console.log('Game Over');
+  }
 }

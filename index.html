@@ -10,30 +10,50 @@
     var gPlayer;
     var gScore = 0;
     var gScoreDiv;
+    var gHpDiv;
+    var gBasicEnemiesArr = [];
   </script>
   <script src="js/tools.js"></script>
   <script src="grid.js"></script>
   <script src="js/Player.js"></script>
   <script src="js/Keys.js"></script>
   <script src="js/PowerUp.js"></script>
+  <script src="js/BasicEnemy.js"></script>
   <script>
     window.onload = function(){
       gMap = new Map();
       gPlayer = new Player();
       gPlayer.spawnAtPosition();
       gScoreDiv = document.getElementById('score');
+      gHpDiv = document.getElementById('hp');
       for (let i = 0; i <= getRandomInt(3, 15); i++) {
         new PowerUp().spawner();
+      }
+      for (let i = 0; i <= getRandomInt(3, 15); i++){
+        gBasicEnemiesArr.push(new BasicEnemy());
+        gBasicEnemiesArr.slice(-1)[0].spawner();
       }
     };
     function updateScore(){
       gScoreDiv.innerHTML = 'Score : ' + gScore;
+    }
+    function updateHp(){
+      gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
+    }
+    function enemiesPlay(){
+      gBasicEnemiesArr.forEach(function(enemy){
+        enemy.playTurn();
+      });
+    }
+    function endTurn(){
+      enemiesPlay();
     }
   </script>
 </head>
 <body>
   <header>
     <p id="score">Score : 0</p>
+    <p id="hp">15/15</p>
   </header>
   <nav>
     nav here
