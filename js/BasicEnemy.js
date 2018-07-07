@@ -31,28 +31,21 @@ function BasicEnemy () {
   };
 
   this.play = function () {
+    let possibleDirections = [
+        {x: 0, y: 0},
+        {x: 0, y: 1},
+        {x: -1, y: 0},
+        {x: 0, y: -1},
+        {x: 1, y: 0}
+      ];
+      
     let himself = this;
     let timeBetweenMoves = getRandomInt(300, 801);
 
     function selectRandomMove(timestamp) {
       if (timestamp > timeBetweenMoves) {
         timeBetweenMoves = Math.floor(timestamp) + getRandomInt(300, 801);
-        switch (getRandomInt(0, 5)) {
-          case 0 :
-            break;
-          case 1 :
-            himself.move(0, 1);
-            break;
-          case 2 :
-            himself.move(0, -1);
-            break;
-          case 3 :
-            himself.move(1, 0);
-            break;
-          case 4:
-            himself.move(-1, 0);
-            break;
-        }
+        himself.move(possibleDirections[getRandomInt(0, 5)])
       }
       if (himself.hp > 0)
         requestAnimationFrame(selectRandomMove);
@@ -60,20 +53,24 @@ function BasicEnemy () {
     selectRandomMove();
   };
 
-  this.move = function (x, y) {
-    if (gMap.outOfBounds({x, y}))
+  this.move = function (vector) {
+    let targetCell = {
+        x: this.position.x + vector.x,
+        y: this.position.y + vector.y
+      };
+      
+    if (gMap.outOfBounds(targetCell))
       return;
     
-    let targetCellValue = 
-        gMap.getCellValue({x: this.position.x + x, y: this.position.y + y});
+    let targetCellValue = gMap.getCellValue(targetCell);
 
     if (this.verifyIfPlayer(targetCellValue))
       return;
       
     if (targetCellValue === 'empty') {
       this.clearPosition();
-      this.position.x += x;
-      this.position.y += y;
+      this.position.x += vector.x;
+      this.position.y += vector.y;
       this.spawnAtPosition();
     }
   };
