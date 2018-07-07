@@ -346,6 +346,11 @@ function Map()
   {
     return this.grid[cell.x][cell.y].getAttribute('class').split(' ').slice(-1)[0];
   };
+
+  this.getCellDOM = function (cell)
+  {
+    return this.grid[cell.x][cell.y];
+  };
   
   this.outOfBounds = function(cell)
   {
@@ -355,7 +360,7 @@ function Map()
         cell.y < 0 ||
         cell.y >= this.rowCount;
     return result;
-  }
+  };
   
   this.nextMap = function()
   {

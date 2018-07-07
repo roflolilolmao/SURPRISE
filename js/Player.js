@@ -58,9 +58,27 @@ function Player (){
     l[0].takeDamages(this.damages);
   };
 
+  this.triggerAttackAnimation = function (){
+    let container = gMap.getCellDOM(this.position)
+    let animationsArr = [];
+
+    for (let i = 0; i < 4; i++){
+      let newAnimation = document.createElement('div');
+      container.appendChild(newAnimation);
+      newAnimation.innerHTML = "👊";
+
+      newAnimation.style.position = 'relative';
+      newAnimation.style.width = "100%";
+      newAnimation.style.height = "100%";
+      newAnimation.style.transform = "rotate(" + (i * 90) + "deg)";
+      
+      animationsArr.push(newAnimation);
+    }
+  };
+
   this.attack = function (){
-    gMap.setCellValue(this.position, 'attacking');
-    
+    this.triggerAttackAnimation();
+    //gMap.setCellValue(this.position, 'attacking');
     let this_ = this;
     
     let attackIfEnemyInRange = function(targetCell)
