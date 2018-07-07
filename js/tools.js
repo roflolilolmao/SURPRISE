@@ -5,6 +5,7 @@ function addClass(elem, newClass){
 function getRandomInt(min, max){
   return Math.floor(Math.random() * Math.floor(max - min) + min);
 }
+
 function removeClass(element, class_)
 {
   let classes = element.getAttribute('class').split(' ').filter(

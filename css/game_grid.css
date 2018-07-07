@@ -15,8 +15,11 @@
   margin-right : -1px;
 }
 .wall{
-  color : #2a2a2a;
+  color : #a2a2a2;
 }
 .player{
   color: #ff54d1;
+}
+.powerup{
+  color: #ffd82f;
 }

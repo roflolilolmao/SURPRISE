@@ -58,14 +58,14 @@ function Map()
     while(
         x >= 0 && x < this.columnCount &&
         y >= 0 && y < this.rowCount &&
-        this.getCellValue(x, y) != 'wall')
+        this.getCellValue(x, y) !== 'wall')
     {
       this.setCellValue(x, y, 'wall');
       
       x += direction.x;
       y += direction.y;
     }
-  }
+  };
   
   this.generateRandomInnerWall = function()
   {
@@ -96,7 +96,7 @@ function Map()
       
       let first = getRandomInt(0, 4);
       let second = getRandomInt(0, 4);
-      while (first == second)
+      while (first === second)
         second = getRandomInt(0, 4);
         
       return [
