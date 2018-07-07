@@ -1,20 +1,21 @@
 function Player (){
   this.maxHp = 15;
   this.hp = this.maxHp;
-  this.position = {x : 10, y : 10};
+  this.position = {x: gMap.entry.x, y: gMap.entry.y};
   this.damages = 1;
 
   this.spawnAtPosition = function(){
     if (gMap.compareCells(this.position, gMap.exit))
-    {
       this.position = gMap.nextMap();
-    }
-    
     gMap.setCellValue(this.position, 'player');
   };
 
   this.clearPosition = function (){
-    gMap.setCellValue(this.position, 'empty');
+    let newValue = 'empty';
+    if (gMap.compareCells(this.position, gMap.entry))
+      newValue = 'entry';
+    
+    gMap.setCellValue(this.position, newValue);
   };
 
   this.verifyIfPowerUp = function(targetCellValue){

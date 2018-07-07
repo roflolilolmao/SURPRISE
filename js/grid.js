@@ -365,7 +365,7 @@ function Map()
   this.nextMap = function()
   {
     this.generateMap(this.exit.x);
-    return this.entry;
+    return {x: this.entry.x, y: this.entry.y};
   };
 
   this.initGrid();
