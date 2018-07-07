@@ -57,18 +57,34 @@ function Map()
     }
   };
 
-  this.generateWall = function(startingPoint, direction)
+  this.generateWall = function(walls)
+  {
+    let this_ = this;
+    walls.forEach(
+        function(wall)
+        {
+          this_.setCellValue(wall, 'wall');
+        });
+  };
+  
+  this.createWallCoordinates = function(startingPoint, direction)
   {
     let currentPoint = {x: startingPoint.x, y: startingPoint.y};
+    let walls = [];
+    
     while(
         !this.outOfBounds(currentPoint) &&
         this.getCellValue(currentPoint) === 'empty')
     {
-      this.setCellValue(currentPoint, 'wall');
+      walls.push(currentPoint);
 
-      currentPoint.x += direction.x;
-      currentPoint.y += direction.y;
+      currentPoint = {
+          x: currentPoint.x + direction.x,
+          y: currentPoint.y + direction.y
+        };
     }
+    
+    return walls;
   };
 
   this.generateRandomInnerWall = function()
@@ -99,30 +115,115 @@ function Map()
     };
 
     let directions = twoRandomDirections();
-    this.generateWall(roomCorner, directions[0]);
-    this.generateWall(
+    let walls1 = this.createWallCoordinates(roomCorner, directions[0]);
+    let perpendicularDirections = [
+        {x: directions[0].y, y: directions[0].x},
+        {x: -directions[0].y, y: -directions[0].x}
+      ];
+    walls1 = walls1.map(
+        function(wall)
+        {
+          return {
+              x: wall.x, 
+              y: wall.y, 
+              p1: perpendicularDirections[0],
+              p2: perpendicularDirections[1]
+            };
+        });
+   
+    let walls2 = this.createWallCoordinates(
         {x: roomCorner.x + directions[1].x, y: roomCorner.y + directions[1].y},
         directions[1]);
+    perpendicularDirections = [
+        {x: directions[1].y, y: directions[1].x},
+        {x: -directions[1].y, y: -directions[1].x}
+      ];
+    walls2 = walls2.map(
+        function(wall)
+        {
+          return {
+              x: wall.x, 
+              y: wall.y, 
+              p1: perpendicularDirections[0],
+              p2: perpendicularDirections[1]
+            };
+        });
+    
+    let this_ = this;
+    
+    let validateWall = function(walls, direction)
+    {
+      let result = true;
+      
+      walls.forEach(
+          function(wall)
+          {
+            if (
+                this_.getCellValue(this_.addVector(wall, wall.p1)) ==='wall' ||
+                this_.getCellValue(this_.addVector(wall, wall.p2)) ==='wall')
+              result = false;
+          });
+          
+      return result;
+    };
+    
+    let walls = walls1.concat(walls2);
+    
+    if (
+        walls.length == 0 ||
+        !validateWall(walls1, directions[0]) ||
+        !validateWall(walls2, directions[1]))
+      return;
+
+    this.generateWall(walls);
+    
+    let randomCellOnWall = walls[getRandomInt(1, walls.length - 1)];
+    
+    let randomCellLeftOfWall = {
+        x: randomCellOnWall.x + randomCellOnWall.p1.x,
+        y: randomCellOnWall.y + randomCellOnWall.p1.y
+      };
+    let randomCellRightOfWall = {
+        x: randomCellOnWall.x + randomCellOnWall.p2.x,
+        y: randomCellOnWall.y + randomCellOnWall.p2.y
+      };
+      
+    this.generateDoors(walls, randomCellLeftOfWall);
+    this.generateDoors(walls, randomCellRightOfWall);
   };
 
+  this.generateDoors = function(walls, cell)
+  {    
+    while(
+        this.pathFinding(cell, this.entry) == null ||
+        this.pathFinding(cell, this.exit) == null)
+    {
+      let index = getRandomInt(0, walls.length);
+      this.setCellValue(walls[index], 'door');
+      walls.splice(index, 1);
+    }
+  };
+  
   this.generateMap = function(entry)
   {
     for (let x = 0; x < this.columnCount; x++)
       for (let y = 0; y < this.rowCount; y++)
         this.setCellValue({x: x, y: y}, 'empty');
     
-    this.generateWall(
+    let walls = this.createWallCoordinates(
         {x: 0, y: 0},
         {x: 1, y: 0});
-    this.generateWall(
+    walls = walls.concat(this.createWallCoordinates(
         {x: 0, y: 1},
-        {x: 0, y: 1});
-    this.generateWall(
+        {x: 0, y: 1}));
+    walls = walls.concat(this.createWallCoordinates(
         {x: this.columnCount - 1, y: this.rowCount - 1},
-        {x: 0, y: -1});
-    this.generateWall(
+        {x: 0, y: -1}));
+    walls = walls.concat(this.createWallCoordinates(
         {x: this.columnCount - 2, y: this.rowCount - 1},
-        {x: -1, y: 0});
+        {x: -1, y: 0}));
+    
+    this.generateWall(walls);
     
     this.entry = {x: entry, y: 0};
     this.exit = {x: getRandomInt(1, this.columnCount - 1), y: this.rowCount - 1};
@@ -130,30 +231,8 @@ function Map()
     this.setCellValue(this.entry, 'entry');
     this.setCellValue(this.exit, 'entry');
 
-    for (let i = 0; i < getRandomInt(2, 5); i++)
+    for (let i = 0; i < getRandomInt(2, 10); i++)
       this.generateRandomInnerWall();
-
-    this.generateDoors();
-  };
-
-  this.generateDoors = function()
-  {    
-    let walls = [];
-    for (let x = 1; x < this.columnCount - 1; x++)
-      for (let y = 1; y < this.rowCount - 1; y++)
-        if (this.getCellValue({x: x, y: y}) == 'wall')
-          walls.push({x: x, y: y});
-
-    while(this.pathFinding(this.entry, this.exit) == null)
-    {
-      let index = getRandomInt(0, walls.length);
-      let wall = walls[index];
-
-      if (this.getCellValue(wall) == 'wall')
-        this.setCellValue(wall, 'door');
-      
-      walls.splice(index, 1);
-    }
   };
   
   this.compareCells = function(a, b)
@@ -161,18 +240,18 @@ function Map()
     return a.x == b.x && a.y == b.y;
   };
 
+  this.addVector = function(cell, v)
+  {
+    return {
+        x: cell.x + v.x,
+        y: cell.y + v.y,
+        score: cell.score,
+        parent: cell
+      };
+  };
+  
   this.pathFinding = function(start, end)
   {
-    let addVector = function(cell, v)
-    {
-      return {
-          x: cell.x + v.x,
-          y: cell.y + v.y,
-          score: cell.score,
-          parent: cell
-        };
-    };
-
     let possible_directions = [
         {x: 0, y: 1},
         {x: -1, y: 0},
@@ -191,7 +270,7 @@ function Map()
       possible_directions.forEach(
           function(direction)
           {
-            let neighbour = addVector(cell, direction);
+            let neighbour = this_.addVector(cell, direction);
 
             if (this_.outOfBounds(neighbour))
               return;
