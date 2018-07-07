@@ -120,6 +120,10 @@ function Map()
 
   this.generateMap = function(entry)
   {
+    for (let x = 0; x < this.columnCount; x++)
+      for (let y = 0; y < this.rowCount; y++)
+        this.setCellValue(x, y, 'empty');
+    
     this.generateWall(
         {x: 0, y: 0},
         {x: 1, y: 0});
