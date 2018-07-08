@@ -39,8 +39,19 @@ function Map()
 
       document.getElementById('game_container').appendChild(rowDiv);
 
-      rowDiv.style.width = '90vw';
-      let height = Math.ceil(rowDiv.offsetWidth / this.columnCount);
+      rowDiv.style.width = '99vw';
+      rowDiv.style.height = '99vh';
+      console.log(
+              Math.ceil(rowDiv.offsetWidth / this.columnCount),
+              Math.ceil(rowDiv.offsetHeight / this.rowCount)
+          , document.getElementById('header').offsetHeight
+          , document.getElementById('footer').offsetHeight);
+      let height =
+          Math.min(
+              Math.ceil(rowDiv.offsetWidth / this.columnCount),
+              Math.ceil((rowDiv.offsetHeight  - 40
+          - document.getElementById('header').offsetHeight
+          - document.getElementById('footer').offsetHeight))/ this.rowCount);
       rowDiv.style.width = 30 * height + 'px';
       rowDiv.style.height = height + 'px';
 
