@@ -25,6 +25,7 @@
     var gRekt = null;
     var gBoom = null;
     var gBlingotron = null;
+    var gSlide = null;
   </script>
   <script src="js/tools.js"></script>
   <script src="js/grid.js"></script>
@@ -50,6 +51,8 @@
       gRekt = document.getElementById('rekt');
       gBoom = document.getElementById('boom');
       gBlingotron = document.getElementById('blingotron');
+      gSlide = document.getElementById('slide');
+      updateHp();
       nextMap();
     };
     function wipeMap()
@@ -129,6 +132,9 @@
   </audio>
   <audio id="blingotron">
     <source src="sound/blingbling.wav" type="audio/wav">
+  </audio>
+  <audio id="slide">
+    <source src="sound/slide.wav" type="audio/wav">
   </audio>
   <header>
     <p id="score">Rubies : </p>
