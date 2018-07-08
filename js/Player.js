@@ -54,6 +54,12 @@ function Player (){
     }
   };
 
+  this.verifyIfDoor = function (targetCellValue){
+    if (targetCellValue === 'door'){
+      gDingDong.play();
+    }
+  }
+
   this.move = function (x, y) {
     let targetCell = {x: this.position.x + x, y: this.position.y + y};
     
@@ -66,6 +72,7 @@ function Player (){
       this.takeDamages(1);
     }
     else if (targetCellValue !== 'wall') {
+      this.verifyIfDoor(targetCellValue);
       this.verifyIfRuby(targetCellValue);
       this.verifyIfPowerUp(targetCellValue);
       this.clearPosition();

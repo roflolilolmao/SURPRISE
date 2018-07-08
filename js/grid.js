@@ -416,6 +416,7 @@ function Map()
   this.nextMap = function()
   {
     this.generateMap(this.exit.x);
+    gSlide.play();
     return {x: this.entry.x, y: this.entry.y};
   };
 
