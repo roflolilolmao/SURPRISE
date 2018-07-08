@@ -27,7 +27,7 @@ function Player (){
 
   this.verifyIfPowerUp = function(targetCellValue){
     if (targetCellValue === 'powerup') {
-      let die = getRandomInt(1,101){
+      let die = getRandomInt(1,101);
         if (die < 30){
           this.hp = this.maxHp;
         }
@@ -46,8 +46,7 @@ function Player (){
             this.hp = this.maxHp;
         }
       }
-    }
-  };
+    };
 
   this.move = function (x, y) {
     let targetCell = {x: this.position.x + x, y: this.position.y + y};
