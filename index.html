@@ -12,7 +12,7 @@
     var gScoreDiv;
     var gHpDiv;
     var gBasicEnemiesArr = [];
-    var gBossThreshold = 1.0;
+    var gBossThreshold = 0.0;
     var gGameContainer = null;
   </script>
   <script src="js/tools.js"></script>
@@ -47,7 +47,7 @@
     function nextMap()
     {
       let string =
-          'transform: rotateX(' + 15 * gBossThreshold + 'deg);';
+          'rotateX(' + 15 * gBossThreshold + 'deg)';
       gGameContainer.style.transform = string;
       gGameContainer.style.WebkitTransform = string;
       
