@@ -85,10 +85,7 @@ function Player (){
     this.hp -= damages;
     updateHp();
     if (this.hp <= 0)
-    {
-      gRekt.play();
-      console.log('Game Over');
-    }
+      gameOver();
   };
 
   this.findEnemyToHitAndHit = function (cell) {

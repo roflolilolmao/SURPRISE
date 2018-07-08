@@ -30,6 +30,42 @@ main{
 }
 #game_container{
   transform-style: preserve-3d;
+  position: relative;
+  /* display: none; */
+}
+#team_yellow{
+  /* display: flex; */
+  display: none;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+}
+.rekt{
+  margin: auto;
+  font-family: 'Playfair Display', serif;
+  color: #aa3300;
+  font-size: 8em;
+}
+#rekt_div{
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+#rekt_div.anim{
+  -webkit-transition: 3s;
+  -moz-transition: 3s;
+  -ms-transition: 3s;
+  -o-transition: 3s;
+  transition: 3s;
+  opacity: 1 !important;
+}
+#died{
+  margin: auto;
 }
 .rubies{
   filter: hue-rotate(180deg);

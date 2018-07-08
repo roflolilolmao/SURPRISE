@@ -5,6 +5,7 @@
   <title>puppetteer bed radiance lurk gecko red flower blossom confetti sim spider with a top hat blast raspberry panzerfaust rainbow fist punch heart attack bacon kitty hawaiian nightmare summer banana polymorphisme will this title fit?</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
   <link rel="stylesheet" href="css/game_grid.css" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400' rel='stylesheet' type='text/css'>
   <script>
     var gCestPartiEnCouilles = false;
     var gMap = '';
@@ -41,6 +42,7 @@
   <script src="js/Ruby.js"></script>
   <script>
     function resetAll(){
+      document.getElementById('rekt_div').classList.remove('anim');
       if (gGameContainer)
         gGameContainer.innerHTML = "";
       gCestPartiEnCouilles = false;
@@ -155,6 +157,16 @@
       if (gCestPartiEnCouilles)
         requestAnimationFrame(handleTransform);
     }
+    function gameOver()
+    {
+      document.getElementById('rekt_div').classList.add('anim');
+      gRekt.play();
+      
+      setTimeout(function()
+          {
+            startingState();
+          }, 3000);
+    }
   </script>
 </head>
 <body>
@@ -196,6 +208,14 @@
   </header>
   <main>
     <div id="game_container">
+      <div id=rekt_div>
+        <h1 class=rekt id=died>YOU DIED</h1>
+      </div>
+    </div>
+    <div id=team_yellow>
+      <h1 class=rekt id=the_truth>Game over</h1>
+      <p>You collected %s rubies.</p>
+      <button onclick="help()">Start over</button>
     </div>
   </main>
   <footer id="footer">
