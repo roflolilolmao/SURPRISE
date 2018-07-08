@@ -41,11 +41,6 @@ function Map()
 
       rowDiv.style.width = '99vw';
       rowDiv.style.height = '99vh';
-      console.log(
-              Math.ceil(rowDiv.offsetWidth / this.columnCount),
-              Math.ceil(rowDiv.offsetHeight / this.rowCount)
-          , document.getElementById('header').offsetHeight
-          , document.getElementById('footer').offsetHeight);
       let height =
           Math.min(
               Math.ceil(rowDiv.offsetWidth / this.columnCount),

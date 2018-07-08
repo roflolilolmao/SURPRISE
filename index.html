@@ -56,6 +56,7 @@
       gSlide = document.getElementById('slide');
       updateHp();
       nextMap();
+      handleTransform();
     };
     function wipeMap()
     {
@@ -69,8 +70,6 @@
     }
     function nextMap()
     {
-      handleTransform();
-      
       wipeMap();
       
       gPlayer.position = gMap.nextMap();
@@ -154,11 +153,10 @@
   <audio id="blingotron">
     <source src="sound/blingbling.wav" type="audio/wav">
   </audio>
+  <!-- <audio id="slide"> -->
+    <!-- <source src="sound/slide.wav" type="audio/wav"> -->
+  <!-- </audio> -->
   <header id="header">
-  <audio id="slide">
-    <source src="sound/slide.wav" type="audio/wav">
-  </audio>
-  <header>
     <p id="score">Rubies : </p>
     <p id="hp">15/15</p>
   </header>
