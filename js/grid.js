@@ -12,7 +12,8 @@ function Map()
       'enemy': 'e',
       
       'attacking': '👊',
-      'enemy_attacking': '✋'
+      'enemy_attacking': '✋',
+      'boss_attacking': '🎤'
     };
 
   this.columnCount = 30;
@@ -213,8 +214,8 @@ function Map()
   this.generateDoors = function(walls, cell)
   {    
     while(
-        this.pathFinding(cell, this.entry) == null ||
-        this.pathFinding(cell, this.exit) == null)
+        this.pathFinding(cell, this.entry, true) == null ||
+        this.pathFinding(cell, this.exit, true) == null)
     {
       let index = getRandomInt(0, walls.length);
       this.setCellValue(walls[index], 'door');
@@ -270,7 +271,7 @@ function Map()
       };
   };
   
-  this.pathFinding = function(start, end)
+  this.pathFinding = function(start, end, doorsArePathable)
   {
     let possibleDirections = [
         {x: 0, y: 1},
@@ -284,6 +285,20 @@ function Map()
     let closedCells = [];
 
     let this_ = this;  // whatever man
+    
+    let cellIsPathable = function (cell)
+    {
+      if (this_.getCellValue(cell) !== 'wall')
+        return true;
+      
+      if (
+          doorsArePathable &&
+          (this_.getCellValue(cell) === 'door' ||
+          this_.getCellValue(cell) === 'entry'))
+        return true;
+      
+      return false;
+    };
 
     let findAdjacentCells = function(cell)
     {
@@ -295,7 +310,7 @@ function Map()
             if (this_.outOfBounds(neighbour))
               return;
 
-            if (this_.getCellValue(neighbour) == 'wall')
+            if (!cellIsPathable(neighbour))
               return;
 
             for (let i = 0; i < closedCells.length; i++)
@@ -347,7 +362,7 @@ function Map()
         }
 
       if (this.compareCells(currentCell, end))
-        return currentCell;
+        return currentCell.parent;
 
       findAdjacentCells(currentCell);
     }

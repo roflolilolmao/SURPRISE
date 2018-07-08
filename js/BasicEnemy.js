@@ -11,7 +11,7 @@ BasicEnemy.prototype.maxHp = function()
   return 1;
 };
 
-BasicEnemy.prototype.CssClass = function()
+BasicEnemy.prototype.CssClasses = function()
 {
-  return 'enemy';
+  return {base: 'enemy', attacking: 'enemy_attacking'};
 };
