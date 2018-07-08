@@ -46,12 +46,21 @@
     function resetAll(){
       document.getElementById('rekt_div').classList.remove('anim');
       if (gGameContainer)
-        gGameContainer.innerHTML = "";
+        gGameContainer.innerHTML = "<div id=rekt_div>" +
+          "<h1 class=rekt id=died>YOU DIED</h1>" +
+          "</div>";
       gCestPartiEnCouilles = false;
       gMap = '';
       gPlayer = null;
       gScore = 0;
-      gBasicEnemiesArr = [];
+      if (gBasicEnemiesArr[0])
+      {
+        gBasicEnemiesArr.forEach(function (enemy){
+          enemy.hp = 0;
+          enemy.die();
+      });
+        gBasicEnemiesArr = [];
+      }
       gBossThreshold = 0.0;
 
       gCoolBassLine = null;
