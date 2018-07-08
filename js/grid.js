@@ -37,7 +37,7 @@ function Map()
       rowDiv.setAttribute('id', 'row_' + y);
       rowDiv.setAttribute('class', 'rows');
 
-      document.getElementById('game_container').appendChild(rowDiv);
+      gGameContainer.appendChild(rowDiv);
 
       rowDiv.style.width = '99vw';
       rowDiv.style.height = '99vh';

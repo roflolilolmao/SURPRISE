@@ -41,11 +41,11 @@
   <script src="js/Ruby.js"></script>
   <script>
     window.onload = function(){
+      gGameContainer = document.getElementById('game_container');
       gMap = new Map();
       gPlayer = new Player();
       gScoreDiv = document.getElementById('score');
       gHpDiv = document.getElementById('hp');
-      gGameContainer = document.getElementById('game_container');
       gCoolBassLine = document.getElementById('cool_bass_line');
       gPif = document.getElementById('pif');
       gPouf = document.getElementById('pouf');
@@ -161,7 +161,7 @@
   <audio id="dingdong">
     <source src="sound/dingdong.wav" type="audio/wav">
   </audio>
-  <header>
+  <header id="header">
     <p id="score">Rubies : </p>
     <p id="hp">15/15</p>
   </header>
