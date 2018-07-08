@@ -28,25 +28,25 @@ function Player (){
   this.verifyIfPowerUp = function(targetCellValue){
     if (targetCellValue === 'powerup') {
       let die = getRandomInt(1,101);
-        if (die < 30){
-          this.hp = this.maxHp;
-        }
-        else if (die < 40){
-          this.maxHp++;
-        }
-        else if (die < 50){
-          this.damages++;
-        }
-        else if (die < 60){
-          this.range++;
-        }
-        else {
-          this.hp++;
-          if (this.hp > this.maxHp)
-            this.hp = this.maxHp;
-        }
+      if (die < 30){
+        this.hp = this.maxHp;
       }
-    };
+      else if (die < 40){
+        this.maxHp++;
+      }
+      else if (die < 50){
+        this.damages++;
+      }
+      else if (die < 60){
+        this.range++;
+      }
+      else {
+        this.hp++;
+        if (this.hp > this.maxHp)
+          this.hp = this.maxHp;
+      }
+    }
+  };
 
   this.move = function (x, y) {
     let targetCell = {x: this.position.x + x, y: this.position.y + y};
