@@ -10,18 +10,22 @@ header{
   background: #ffffff;
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column;
 }
 p{
   margin : 0;
 }
-header > *{
-  max-width: 40vw;
-  margin: 0 5px;
-  padding: 4px 8px;
+.header_top_row{
+  margin : 0px 5px 10px 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+#bottom_header_row{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 main{
   perspective: 1000px;
