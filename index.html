@@ -98,11 +98,11 @@
       gBossThreshold += 0.1;
     }
     function updateScore(){
-      let string = 'Rubies : <span class="rubies">';
+      let html = '<p style="text-align: center;">Rubies</p><p class="rubies">';
       for (let i = 0; i < gScore; i++){
-        string += '💎';
+        html += '💎';
       }
-      gScoreDiv.innerHTML = string + "</span>";
+      gScoreDiv.innerHTML = html + "</p>";
     }
     function updateHp(){
       gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
@@ -165,17 +165,11 @@
     <p id="score">Rubies : </p>
     <p id="hp">15/15</p>
   </header>
-  <nav>
-    nav here
-  </nav>
   <main>
-    main here
     <div id="game_container">
-      game container here
     </div>
   </main>
   <footer id="footer">
-    footer here
   </footer>
 </body>
 </html>
