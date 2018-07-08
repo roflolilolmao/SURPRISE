@@ -22,6 +22,7 @@
   <script src="js/GenericEnemy.js"></script>
   <script src="js/BasicEnemy.js"></script>
   <script src="js/BossEnemy.js"></script>
+  <script src="js/Ruby.js"></script>
   <script>
     window.onload = function(){
       gMap = new Map();
@@ -47,7 +48,7 @@
       
       gPlayer.position = gMap.nextMap();
       gPlayer.spawnAtPosition();
-      for (let i = 0; i <= getRandomInt(3, 15); i++) {
+      for (let i = 0; i <= getRandomInt(0, 2); i++) {
         new PowerUp().spawner();
       }
       for (let i = 0; i <= getRandomInt(3, 15); i++)
@@ -62,6 +63,9 @@
       gBasicEnemiesArr.forEach(function (enemy){
         enemy.play();
       });
+      for(let i = 0; i <= getRandomInt(3, 13); i++){
+        new Ruby().spawner();
+      }
       
       gBossThreshold += 0.1;
     }
