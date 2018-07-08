@@ -94,6 +94,13 @@ GenericEnemy.prototype.die = function (){
         himself.position.y === enemy.position.y);
   }), 1);
   this.clearPosition();
+  let footerText = chooseRandomString([
+    "Take that you monster !",
+    "This thing nearly gave me an heart attack !",
+    "Snakes ! It had to be snakes !",
+    "His whore mom, will definetely eat alone tonight .... Maybe you ought to give her a visit ??"
+  ]);
+  updateFooter(footerText);
 };
 
 GenericEnemy.prototype.takeDamages = function (damages) {

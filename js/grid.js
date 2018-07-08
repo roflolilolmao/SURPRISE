@@ -420,6 +420,13 @@ function Map()
   {
     this.generateMap(this.exit.x);
     gSlide.play();
+    let footerText = chooseRandomString([
+      "Deeper and deeper and darker and deeper and darker and deeper!",
+      "Stairs again ??? Come on ....",
+      "I'm feeling a bit dizzy ....",
+      "How far does this dungeon goes ?"
+    ]);
+    updateFooter(footerText);
     return {x: this.entry.x, y: this.entry.y};
   };
 

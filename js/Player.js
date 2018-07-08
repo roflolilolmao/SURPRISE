@@ -23,6 +23,13 @@ function Player (){
       gBlingotron.play();
       gScore += 1;
       updateScore();
+      let footerText = chooseRandomString([
+        "Hoooo riches !",
+        "Money's funny even in a rich man dungeon ...",
+        "Ruby, Ruby, Ruby, Ruby !Do you, do you, do you, do you Know what you're doing, doing, to me! Ruby, Ruby, Ruby, Ruby!",
+        "Yay ! A red Flower ! Oh shoot, it's just a shiny stone ...."
+      ]);
+      updateFooter(footerText);
     }
   };
 
@@ -33,24 +40,30 @@ function Player (){
       if (die < 30){
         this.hp = this.maxHp;
         updateHp();
+        updateFooter("You feel reborn.")
       }
       else if (die < 40){
         this.maxHp++;
         updateHp();
+        updateFooter("That piece of meat was probably some legendary gecko, because after eating eat you feel like you can endure more ...");
       }
       else if (die < 50){
         this.damages++;
         updateDamage();
+        updateFooter("Who knew that eating this banana you found on the ground would make you stronger ?");
       }
       else if (die < 60){
         this.range++;
         updateRange();
+        updateFooter("The rainbows shooting out of your fists seems to reach further now that you're wearing this ring ...");
       }
       else {
         this.hp++;
         if (this.hp > this.maxHp)
           this.hp = this.maxHp;
         updateHp();
+        updateFooter("Some water ! You feel a bit better.");
+
       }
     }
   };
@@ -58,8 +71,15 @@ function Player (){
   this.verifyIfDoor = function (targetCellValue){
     if (targetCellValue === 'door'){
       gDingDong.play();
+      let footerText = chooseRandomString([
+        "KNOCK KNOCK !",
+        "Where's the handle ?",
+        "Watch out ! Coming through !",
+        "That door had a funny graffiti of a spider with a top hat. Probably some bored cultist draw it years ago ..."
+      ]);
+      updateFooter(footerText);
     }
-  }
+  };
 
   this.move = function (x, y) {
     let targetCell = {x: this.position.x + x, y: this.position.y + y};
