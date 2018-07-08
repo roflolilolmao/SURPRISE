@@ -27,6 +27,7 @@
     var gBoom = null;
     var gBlingotron = null;
     var gSlide = null;
+    var gDingDong = null;
     var gAngle = 0;
   </script>
   <script src="js/tools.js"></script>
@@ -40,11 +41,11 @@
   <script src="js/Ruby.js"></script>
   <script>
     window.onload = function(){
+      gGameContainer = document.getElementById('game_container');
       gMap = new Map();
       gPlayer = new Player();
       gScoreDiv = document.getElementById('score');
       gHpDiv = document.getElementById('hp');
-      gGameContainer = document.getElementById('game_container');
       gCoolBassLine = document.getElementById('cool_bass_line');
       gPif = document.getElementById('pif');
       gPouf = document.getElementById('pouf');
@@ -54,6 +55,7 @@
       gBoom = document.getElementById('boom');
       gBlingotron = document.getElementById('blingotron');
       gSlide = document.getElementById('slide');
+      gDingDong = document.getElementById('dingdong');
       updateHp();
       nextMap();
       handleTransform();
@@ -96,11 +98,11 @@
       gBossThreshold += 0.1;
     }
     function updateScore(){
-      let string = 'Rubies : <span class="rubies">';
+      let html = '<p style="text-align: center;">Rubies</p><p class="rubies">';
       for (let i = 0; i < gScore; i++){
-        string += '💎';
+        html += '💎';
       }
-      gScoreDiv.innerHTML = string + "</span>";
+      gScoreDiv.innerHTML = html + "</p>";
     }
     function updateHp(){
       gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
@@ -153,24 +155,21 @@
   <audio id="blingotron">
     <source src="sound/blingbling.wav" type="audio/wav">
   </audio>
-  <!-- <audio id="slide"> -->
-    <!-- <source src="sound/slide.wav" type="audio/wav"> -->
-  <!-- </audio> -->
+  <audio id="slide">
+    <source src="sound/slide.wav" type="audio/wav">
+  </audio>
+  <audio id="dingdong">
+    <source src="sound/dingdong.wav" type="audio/wav">
+  </audio>
   <header id="header">
     <p id="score">Rubies : </p>
     <p id="hp">15/15</p>
   </header>
-  <nav>
-    nav here
-  </nav>
   <main>
-    main here
     <div id="game_container">
-      game container here
     </div>
   </main>
   <footer id="footer">
-    footer here
   </footer>
 </body>
 </html>
