@@ -145,20 +145,12 @@ function Player (){
   this.attack = function () {
     this.triggerAttackAnimation();
     let this_ = this;
-<<<<<<< Updated upstream
-    
     gPif.play();
-    
-    let attackIfEnemyInRange = function(targetCell)
-    {
-=======
 
     let attackIfEnemyInRange = function (targetCell) {
->>>>>>> Stashed changes
       if (gMap.cellContainsEnemy(targetCell))
         this_.findEnemyToHitAndHit(targetCell);
     };
-
     for (let i = this.range; i > 0; i--) {
       let right = {x: this.position.x + i, y: this.position.y};
       if (!gMap.outOfBounds(right))
