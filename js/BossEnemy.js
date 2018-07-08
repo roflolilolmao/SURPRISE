@@ -19,15 +19,9 @@ BossEnemy.prototype.CssClasses = function()
 BossEnemy.prototype.moveVector = function () {
   let path = gMap.pathFinding(gPlayer.position, this.position, false);
   
-  console.log(path);
-  
   if (path == null)
     return GenericEnemy.call(this);
   
-  console.log([
-      path.x , this.position.x,
-      path.y , this.position.y
-    ]);
   return {
       x: path.x - this.position.x,
       y: path.y - this.position.y

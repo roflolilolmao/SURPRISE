@@ -11,3 +11,14 @@ header{
 header *{
   margin : 0;
 }
+main{
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+#game_container{
+  webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+
+

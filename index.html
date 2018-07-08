@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SurpRise</title>
+  <title>c'est codé avec le cul</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
   <link rel="stylesheet" href="css/game_grid.css" type="text/css">
   <script>
@@ -12,7 +12,8 @@
     var gScoreDiv;
     var gHpDiv;
     var gBasicEnemiesArr = [];
-    var gBossThreshold = 0.1;
+    var gBossThreshold = 1.0;
+    var gContainer = null;
   </script>
   <script src="js/tools.js"></script>
   <script src="js/grid.js"></script>
@@ -28,6 +29,7 @@
       gPlayer = new Player();
       gScoreDiv = document.getElementById('score');
       gHpDiv = document.getElementById('hp');
+      gGameContainer = document.getElementById('game_container');
       
       nextMap();
     };
@@ -43,6 +45,11 @@
     }
     function nextMap()
     {
+      let string =
+          'transform: rotateX(' + 15 * gBossThreshold + 'deg)';
+      gGameContainer.style.transform = string;
+      gGameContainer.style.WebkitTransform = string;
+      
       wipeMap();
       
       gPlayer.position = gMap.nextMap();

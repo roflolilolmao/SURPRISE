@@ -402,7 +402,8 @@ function Map()
     return (
         value_ === 'enemy' ||
         value_ === 'boss' ||
-        value_ === 'enemy_attacking'
+        value_ === 'enemy_attacking' ||
+        value_ === 'boss_attacking'
       );
   };
   
