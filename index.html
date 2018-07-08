@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/style.css" type="text/css">
   <link rel="stylesheet" href="css/game_grid.css" type="text/css">
   <script>
+    var gCestPartiEnCouilles = false;
     var gMap = '';
     var gPlayer;
     var gScore = 0;
@@ -25,6 +26,7 @@
     var gRekt = null;
     var gBoom = null;
     var gBlingotron = null;
+    var gAngle = 0;
   </script>
   <script src="js/tools.js"></script>
   <script src="js/grid.js"></script>
@@ -64,9 +66,7 @@
     }
     function nextMap()
     {
-      let string = 'rotateX(' + 30 * gBossThreshold + 'deg)';
-      gGameContainer.style.transform = string;
-      gGameContainer.style.WebkitTransform = string;
+      handleTransform();
       
       wipeMap();
       
@@ -102,6 +102,27 @@
     }
     function updateHp(){
       gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
+    }
+    function handleTransform()
+    {
+    gCestPartiEnCouilles=true;
+        
+      getHandleFunkyTransform()
+    
+      let string = 'rotateX(' + gAngle + 'deg)';
+      gGameContainer.style.transform = string;
+      gGameContainer.style.WebkitTransform = string;
+    }
+    function getHandleProutTransform()
+    {
+      gAngle = 30 * gBossThreshold
+    }
+    function getHandleFunkyTransform()
+    {
+      gAngle += 0.005 * gBossThreshold;
+      
+      if (gCestPartiEnCouilles)
+        requestAnimationFrame(handleTransform);
     }
   </script>
 </head>

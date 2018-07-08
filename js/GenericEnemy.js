@@ -44,14 +44,16 @@ GenericEnemy.prototype.moveVector = function () {
 GenericEnemy.prototype.play = function () {
   let himself = this;
   let timeBetweenMoves = getRandomInt(300, 801);
+  
+  if (himself.hp < 1)
+    return;
 
   function selectMove(timestamp) {
     if (timestamp > timeBetweenMoves) {
       timeBetweenMoves = Math.floor(timestamp) + getRandomInt(300, 801);
       himself.move(himself.moveVector())
     }
-    if (himself.hp > 0)
-      requestAnimationFrame(selectMove);
+    requestAnimationFrame(selectMove);
   }
   selectMove();
 };
