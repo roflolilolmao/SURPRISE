@@ -1,6 +1,7 @@
 function GenericEnemy () {
   this.hp = this.maxHp();
   this.position = {x : 0, y : 0};
+  this.dead = false;
 }
 
 GenericEnemy.prototype.spawnAtPosition = function() {
@@ -44,16 +45,14 @@ GenericEnemy.prototype.moveVector = function () {
 GenericEnemy.prototype.play = function () {
   let himself = this;
   let timeBetweenMoves = getRandomInt(300, 801);
-  
-  if (himself.hp < 1)
-    return;
 
   function selectMove(timestamp) {
     if (timestamp > timeBetweenMoves) {
       timeBetweenMoves = Math.floor(timestamp) + getRandomInt(300, 801);
       himself.move(himself.moveVector())
     }
-    requestAnimationFrame(selectMove);
+    if (himself.hp > 0)
+      requestAnimationFrame(selectMove);
   }
   selectMove();
 };
@@ -63,6 +62,9 @@ GenericEnemy.prototype.move = function (vector) {
       x: this.position.x + vector.x,
       y: this.position.y + vector.y
     };
+    
+  if (this.hp < 1)
+    return;
     
   if (gMap.outOfBounds(targetCell))
     return;
@@ -88,7 +90,7 @@ GenericEnemy.prototype.die = function (){
         himself.position.x === enemy.position.x && 
         himself.position.y === enemy.position.y);
   }), 1);
-  gMap.setCellValue(this.position, 'empty');
+  this.clearPosition();
 };
 
 GenericEnemy.prototype.takeDamages = function (damages) {
