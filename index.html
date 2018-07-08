@@ -204,6 +204,8 @@
     }
     function gameOver()
     {
+      document.onkeydown = function(){};
+      gMap.setCellValue(gPlayer.position, 'empty');
       document.getElementById('rekt_div').classList.add('anim');
       gRekt.play();
       document.getElementById('ruby_score').innerHTML = 
@@ -217,9 +219,7 @@
     }
     function startOver()
     {
-      startingState();
-      document.getElementById('game_container').style.display = 'flex';
-      document.getElementById('team_yellow').style.display = 'none';
+      location.reload();
     }
   </script>
 </head>
