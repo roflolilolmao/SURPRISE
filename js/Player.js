@@ -55,7 +55,7 @@ function Player (){
       else if (die < 60){
         this.range++;
         updateRange();
-        updateFooter("The rainbows shooting out of your fists seems to reach further now that you're wearing this ring ...");
+        updateFooter("The rainbows shooting out of your fists seems to reach further now that you're wearing this ring you just found");
       }
       else {
         this.hp++;
@@ -106,6 +106,13 @@ function Player (){
   this.takeDamages = function(damages){
     this.hp -= damages;
     updateHp();
+    let footerText = chooseRandomString([
+      "ouch !",
+      "Leave me alone !!",
+      "AAAARGH",
+      "Hey ! What have I done to you ?"
+    ]);
+    updateFooter(footerText);
     if (this.hp <= 0)
       gameOver();
   };
