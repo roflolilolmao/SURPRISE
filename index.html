@@ -132,6 +132,7 @@
     window.onload = function(){
       startingState();
     };
+
     function wipeMap()
     { 
       gBasicEnemiesArr.forEach(
@@ -142,9 +143,15 @@
       gBasicEnemiesArr = [];
       gMap.wipe();
     }
+
+    function chooseRandomString(arr){
+      return arr[getRandomInt(0, arr.length)];
+    }
+
     function updateFooter(string){
       gFooterDom.innerHTML = "<p id=footer_text>" + string + "</p>";
     }
+
     function nextMap()
     {
       wipeMap();
