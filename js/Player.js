@@ -20,7 +20,7 @@ function Player (){
 
   this.verifyIfPowerUp = function(targetCellValue){
     if (targetCellValue === 'ruby'){
-      gScore += 10;
+      gScore += 1;
       updateScore();
     }
   };

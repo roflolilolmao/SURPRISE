@@ -19,6 +19,6 @@ main{
   webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-
-
-
+.rubies{
+  filter: hue-rotate(180deg);
+}

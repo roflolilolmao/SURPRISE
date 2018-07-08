@@ -77,7 +77,11 @@
       gBossThreshold += 0.1;
     }
     function updateScore(){
-      gScoreDiv.innerHTML = 'Score : ' + gScore;
+      let string = 'Rubies : <span class="rubies">';
+      for (let i = 0; i < gScore; i++){
+        string += '💎';
+      }
+      gScoreDiv.innerHTML = string + "</span>";
     }
     function updateHp(){
       gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
