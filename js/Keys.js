@@ -23,6 +23,9 @@ document.onkeydown = function (e){
   else if (e.key === 'q'){
     gPlayer.attack();
   }
+  else if (e.key === 'e'){
+    startingState();
+  }
   else
     console.log(e.key);
 };

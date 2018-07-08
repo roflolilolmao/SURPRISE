@@ -40,12 +40,33 @@
   <script src="js/BossEnemy.js"></script>
   <script src="js/Ruby.js"></script>
   <script>
-    window.onload = function(){
+    function resetAll(){
+      if (gGameContainer)
+        gGameContainer.innerHTML = "";
+      gCestPartiEnCouilles = false;
+      gMap = '';
+      gPlayer = null;
+      gScore = 0;
+      gBasicEnemiesArr = [];
+      gBossThreshold = 0.0;
+
+      gCoolBassLine = null;
+      gMusicActive = false;
+
+      gAngle = 0;
+      if (!gScoreDiv)
+        gScoreDiv = document.getElementById('score');
+      updateScore();
+      if (!gHpDiv)
+        gHpDiv = document.getElementById('hp');
+      updateHp();
+    }
+
+    function startingState(){
+      resetAll();
       gGameContainer = document.getElementById('game_container');
       gMap = new Map();
       gPlayer = new Player();
-      gScoreDiv = document.getElementById('score');
-      gHpDiv = document.getElementById('hp');
       gCoolBassLine = document.getElementById('cool_bass_line');
       gPif = document.getElementById('pif');
       gPouf = document.getElementById('pouf');
@@ -59,6 +80,9 @@
       updateHp();
       nextMap();
       handleTransform();
+    }
+    window.onload = function(){
+      startingState();
     };
     function wipeMap()
     {
@@ -105,7 +129,10 @@
       gScoreDiv.innerHTML = html + "</p>";
     }
     function updateHp(){
-      gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
+      if (gPlayer)
+        gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
+      else
+        gHpDiv.innerHTML = "--/--";
     }
     function handleTransform()
     {
