@@ -18,10 +18,34 @@ function Player (){
     gMap.setCellValue(this.position, newValue);
   };
 
-  this.verifyIfPowerUp = function(targetCellValue){
+  this.verifyIfRuby = function (targetCellValue){
     if (targetCellValue === 'ruby'){
       gScore += 1;
       updateScore();
+    }
+  };
+
+  this.verifyIfPowerUp = function(targetCellValue){
+    if (targetCellValue === 'powerup') {
+      let die = getRandomInt(1,101){
+        if (die < 30){
+          this.hp = this.maxHp;
+        }
+        else if (die < 40){
+          this.maxHp++;
+        }
+        else if (die < 50){
+          this.damages++;
+        }
+        else if (die < 60){
+          this.range++;
+        }
+        else {
+          this.hp++;
+          if (this.hp > this.maxHp)
+            this.hp = this.maxHp;
+        }
+      }
     }
   };
 
@@ -37,6 +61,7 @@ function Player (){
       this.takeDamages(1);
     }
     else if (targetCellValue !== 'wall') {
+      this.verifyIfRuby(targetCellValue);
       this.verifyIfPowerUp(targetCellValue);
       this.clearPosition();
       this.position.x += x;
