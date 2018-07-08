@@ -43,6 +43,7 @@ main{
   height: 90vh;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .rekt{
   margin: auto;
@@ -83,4 +84,19 @@ main{
   align-content: center;
 }
 .ui_child{
+}
+#ruby_score{
+  font-size: 3em;
+  color: red;
+}
+button{
+  width: 90%;
+  height: 5em;
+  color: red;
+  border-radius: 15px;
+  
+  background-color: #332222;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: auto;
 }

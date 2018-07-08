@@ -56,6 +56,32 @@
 
       gCoolBassLine = null;
       gMusicActive = false;
+      
+      gCestPartiEnCouilles = false;
+      gMap = '';
+      gPlayer;
+      gScore = 0;
+      gScoreDiv;
+      gHpDiv;
+      gDamageDiv;
+      gRangeDiv;
+      gBasicEnemiesArr = [];
+      gBossThreshold = 0.0;
+      gGameContainer = null;
+      
+      gCoolBassLine = null;
+      gMusicActive = false;  
+      
+      gPif = null;
+      gPouf = null;
+      gSimsimsim = null;
+      gPchrt = null;
+      gRekt = null;
+      gBoom = null;
+      gBlingotron = null;
+      gSlide = null;
+      gDingDong = null;
+      gAngle = 0;
 
       gAngle = 0;
       if (!gScoreDiv)
@@ -180,11 +206,20 @@
     {
       document.getElementById('rekt_div').classList.add('anim');
       gRekt.play();
+      document.getElementById('ruby_score').innerHTML = 
+          'You collected ' + gScore + ' rubies.';
       
       setTimeout(function()
           {
-            startingState();
+            document.getElementById('game_container').style.display = 'none';
+            document.getElementById('team_yellow').style.display = 'flex';
           }, 3000);
+    }
+    function startOver()
+    {
+      startingState();
+      document.getElementById('game_container').style.display = 'flex';
+      document.getElementById('team_yellow').style.display = 'none';
     }
   </script>
 </head>
@@ -235,8 +270,8 @@
     </div>
     <div id=team_yellow>
       <h1 class=rekt id=the_truth>Game over</h1>
-      <p>You collected %s rubies.</p>
-      <button onclick="help()">Start over</button>
+      <p id=ruby_score>You collected %s rubies.</p>
+      <button onclick="startOver()">Start over</button>
     </div>
   </main>
   <footer id="footer">
