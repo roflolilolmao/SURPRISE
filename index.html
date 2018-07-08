@@ -144,7 +144,7 @@
       gMap.wipe();
     }
     function updateFooter(string){
-      gFooterDom.innerHTML = "<p>" + string + "</p>";
+      gFooterDom.innerHTML = "<p id=footer_text>" + string + "</p>";
     }
     function nextMap()
     {
@@ -197,17 +197,13 @@
     }
     function handleTransform()
     {
-    gCestPartiEnCouilles=true;
+      gCestPartiEnCouilles=true;
         
       getHandleFunkyTransform();
     
       let string = 'rotateX(' + gAngle + 'deg)';
       gGameContainer.style.transform = string;
       gGameContainer.style.WebkitTransform = string;
-    }
-    function getHandleProutTransform()
-    {
-      gAngle = 30 * gBossThreshold
     }
     function getHandleFunkyTransform()
     {
@@ -227,6 +223,7 @@
       
       setTimeout(function()
           {
+            updateFooter('Created by Matt Dirty and roflilolmao');
             document.getElementById('game_container').style.display = 'none';
             document.getElementById('team_yellow').style.display = 'flex';
           }, 3000);
