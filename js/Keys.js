@@ -1,4 +1,13 @@
 document.onkeydown = function (e){
+
+  if (!gMusicActive)
+  {
+    gCoolBassLine.loop = true;
+    gCoolBassLine.play();
+    
+    gMusicActive = true;
+  }
+  
   if (e.key === 'w'){
     gPlayer.move(0, -1);
   }

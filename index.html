@@ -14,6 +14,9 @@
     var gBasicEnemiesArr = [];
     var gBossThreshold = 0.0;
     var gGameContainer = null;
+    
+    var gCoolBassLine = null;
+    var gMusicActive = false;
   </script>
   <script src="js/tools.js"></script>
   <script src="js/grid.js"></script>
@@ -31,7 +34,8 @@
       gScoreDiv = document.getElementById('score');
       gHpDiv = document.getElementById('hp');
       gGameContainer = document.getElementById('game_container');
-      
+      gCoolBassLine = document.getElementById('cool_bass_line');
+        
       nextMap();
     };
     function wipeMap()
@@ -88,9 +92,13 @@
   </script>
 </head>
 <body>
+  <audio id="cool_bass_line">
+    <source src="sound/lamerde.wav" type="audio/wav">
+  </audio>
   <header>
     <p id="score">Score : 0</p>
     <p id="hp">15/15</p>
+    <h1>DE LA MUSIQUE S'IL VOUS PLAîT</<h1>
   </header>
   <nav>
     nav here
