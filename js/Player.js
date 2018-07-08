@@ -20,6 +20,7 @@ function Player (){
 
   this.verifyIfRuby = function (targetCellValue){
     if (targetCellValue === 'ruby'){
+      gBlingotron.play();
       gScore += 1;
       updateScore();
     }
@@ -27,6 +28,7 @@ function Player (){
 
   this.verifyIfPowerUp = function(targetCellValue){
     if (targetCellValue === 'powerup') {
+      gPchrt.play();
       let die = getRandomInt(1,101);
       if (die < 30){
         this.hp = this.maxHp;
@@ -73,7 +75,10 @@ function Player (){
     this.hp -= damages;
     updateHp();
     if (this.hp <= 0)
+    {
+      gRekt.play();
       console.log('Game Over');
+    }
   };
 
   this.findEnemyToHitAndHit = function (cell) {
@@ -140,6 +145,8 @@ function Player (){
   this.attack = function (){
     this.triggerAttackAnimation();
     let this_ = this;
+    
+    gPif.play();
     
     let attackIfEnemyInRange = function(targetCell)
     {

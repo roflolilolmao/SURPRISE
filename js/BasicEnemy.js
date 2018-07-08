@@ -15,3 +15,8 @@ BasicEnemy.prototype.CssClasses = function()
 {
   return {base: 'enemy', attacking: 'enemy_attacking'};
 };
+
+BasicEnemy.prototype.attackSound = function()
+{
+  return gPouf;
+};

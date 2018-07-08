@@ -27,3 +27,8 @@ BossEnemy.prototype.moveVector = function () {
       y: path.y - this.position.y
     };
 };
+
+BossEnemy.prototype.attackSound = function()
+{
+  return gSimsimsim;
+};

@@ -16,7 +16,15 @@
     var gGameContainer = null;
     
     var gCoolBassLine = null;
-    var gMusicActive = false;
+    var gMusicActive = false;  
+
+    var gPif = null;
+    var gPouf = null;
+    var gSimsimsim = null;
+    var gPchrt = null;
+    var gRekt = null;
+    var gBoom = null;
+    var gBlingotron = null;
   </script>
   <script src="js/tools.js"></script>
   <script src="js/grid.js"></script>
@@ -35,7 +43,13 @@
       gHpDiv = document.getElementById('hp');
       gGameContainer = document.getElementById('game_container');
       gCoolBassLine = document.getElementById('cool_bass_line');
-        
+      gPif = document.getElementById('pif');
+      gPouf = document.getElementById('pouf');
+      gSimsimsim = document.getElementById('simsimsim');
+      gPchrt = document.getElementById('pchrt');
+      gRekt = document.getElementById('rekt');
+      gBoom = document.getElementById('boom');
+      gBlingotron = document.getElementById('blingotron');
       nextMap();
     };
     function wipeMap()
@@ -94,6 +108,27 @@
 <body>
   <audio id="cool_bass_line">
     <source src="sound/lamerde.wav" type="audio/wav">
+  </audio>
+  <audio id="pif">
+    <source src="sound/pif.wav" type="audio/wav">
+  </audio>
+  <audio id="pouf">
+    <source src="sound/pouf.wav" type="audio/wav">
+  </audio>
+  <audio id="simsimsim">
+    <source src="sound/simsimsim.wav" type="audio/wav">
+  </audio>
+  <audio id="pchrt">
+    <source src="sound/decaps.wav" type="audio/wav">
+  </audio>
+  <audio id="rekt">
+    <source src="sound/canettequicreve.wav" type="audio/wav">
+  </audio>
+  <audio id="boom">
+    <source src="sound/boom.wav" type="audio/wav">
+  </audio>
+  <audio id="blingotron">
+    <source src="sound/blingbling.wav" type="audio/wav">
   </audio>
   <header>
     <p id="score">Rubies : </p>

@@ -23,6 +23,7 @@ GenericEnemy.prototype.spawner = function () {
 
 GenericEnemy.prototype.verifyIfPlayer = function(targetCellValue) {
   if (targetCellValue === 'player') {
+    this.attackSound().play();
     gMap.setCellValue(this.position, this.CssClasses().attacking);
     gPlayer.takeDamages(1);
     return true;
@@ -79,6 +80,7 @@ GenericEnemy.prototype.move = function (vector) {
 
 GenericEnemy.prototype.die = function (){
   let himself = this;
+  gBoom.play();
   gBasicEnemiesArr.splice(gBasicEnemiesArr.findIndex(function (enemy) {
     return (
         himself.position.x === enemy.position.x && 
