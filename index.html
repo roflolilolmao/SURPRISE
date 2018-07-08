@@ -18,6 +18,7 @@
     var gBasicEnemiesArr = [];
     var gBossThreshold = 0.0;
     var gGameContainer = null;
+    var gFooterDom = null;
     
     var gCoolBassLine = null;
     var gMusicActive = false;  
@@ -124,6 +125,7 @@
       gBlingotron = document.getElementById('blingotron');
       gSlide = document.getElementById('slide');
       gDingDong = document.getElementById('dingdong');
+      gFooterDom = document.getElementById('footer');
       updateHp();
       nextMap();
       handleTransform();
@@ -140,6 +142,9 @@
           });
       gBasicEnemiesArr = [];
       gMap.wipe();
+    }
+    function updateFooter(string){
+      gFooterDom.innerHTML = "<p>" + string + "</p>";
     }
     function nextMap()
     {
