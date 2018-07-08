@@ -56,6 +56,10 @@ function Player (){
     let l = gBasicEnemiesArr.filter(function (enemy) {
       return gMap.compareCells(enemy.position, cell);
     });
+    
+    if (l.length < 1)
+      return;
+    
     l[0].takeDamages(this.damages);
   };
 
