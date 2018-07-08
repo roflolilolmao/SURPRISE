@@ -378,6 +378,9 @@ function Map()
 
   this.setCellValue = function(cell, value_)
   {
+    if (value_ === 'empty')
+      this.grid[cell.x][cell.y].style.fontSize = '100%';
+    
     removeClass(this.grid[cell.x][cell.y], this.getCellValue(cell));
     this.grid[cell.x][cell.y].innerHTML = this.asciiMap[value_];
     addClass(this.grid[cell.x][cell.y], value_);

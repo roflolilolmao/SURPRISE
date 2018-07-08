@@ -1,11 +1,14 @@
 function GenericEnemy () {
-  this.hp = this.maxHp();
+  this.buff = gBossThreshold * Math.random();
+  this.hp = this.maxHp() + Math.round(this.buff * 6);
   this.position = {x : 0, y : 0};
   this.dead = false;
 }
 
 GenericEnemy.prototype.spawnAtPosition = function() {
   gMap.setCellValue(this.position, this.CssClasses().base);
+  gMap.getCellDOM(this.position).style.fontSize = 
+      (1 + this.buff) * 100 + '%';
 };
 
 GenericEnemy.prototype.clearPosition = function () {
