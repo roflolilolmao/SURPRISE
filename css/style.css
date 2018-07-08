@@ -22,7 +22,6 @@ header > *{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 main{
   perspective: 1000px;
@@ -34,4 +33,14 @@ main{
 }
 .rubies{
   filter: hue-rotate(180deg);
+}
+.ui_parent{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+}
+.ui_child{
 }
