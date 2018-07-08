@@ -19,7 +19,7 @@ function Player (){
   };
 
   this.verifyIfPowerUp = function(targetCellValue){
-    if (targetCellValue === 'powerup'){
+    if (targetCellValue === 'ruby'){
       gScore += 10;
       updateScore();
     }
