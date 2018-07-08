@@ -30,7 +30,6 @@ function Player (){
     if (targetCellValue === 'powerup') {
       gPchrt.play();
       let die = getRandomInt(1,101);
-      console.log(die);
       if (die < 30){
         this.hp = this.maxHp;
         updateHp();
