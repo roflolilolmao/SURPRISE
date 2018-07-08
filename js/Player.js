@@ -40,9 +40,11 @@ function Player (){
       }
       else if (die < 50){
         this.damages++;
+        updateDamage();
       }
       else if (die < 60){
         this.range++;
+        updateRange();
       }
       else {
         this.hp++;

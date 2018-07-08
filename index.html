@@ -12,6 +12,8 @@
     var gScore = 0;
     var gScoreDiv;
     var gHpDiv;
+    var gDamageDiv;
+    var gRangeDiv;
     var gBasicEnemiesArr = [];
     var gBossThreshold = 0.0;
     var gGameContainer = null;
@@ -60,6 +62,14 @@
       if (!gHpDiv)
         gHpDiv = document.getElementById('hp');
       updateHp();
+      if (!gDamageDiv){
+        gDamageDiv = document.getElementById('damage');
+      }
+      updateDamage();
+      if (!gRangeDiv){
+        gRangeDiv = document.getElementById('range');
+      }
+      updateRange();
     }
 
     function startingState(){
@@ -130,15 +140,24 @@
     }
     function updateHp(){
       if (gPlayer)
-        gHpDiv.innerHTML = gPlayer.hp + "/" + gPlayer.maxHp;
+        gHpDiv.innerHTML = gPlayer.hp + "❤/" + gPlayer.maxHp;
       else
         gHpDiv.innerHTML = "--/--";
+    }
+
+    function updateDamage(){
+      if (gPlayer)
+        gDamageDiv.innerHTML = gPlayer.damages + "⚔";
+    }
+    function updateRange(){
+      if (gPlayer)
+        gRangeDiv.innerHTML = gPlayer.range + "🏹";
     }
     function handleTransform()
     {
     gCestPartiEnCouilles=true;
         
-      getHandleFunkyTransform()
+      getHandleFunkyTransform();
     
       let string = 'rotateX(' + gAngle + 'deg)';
       gGameContainer.style.transform = string;
@@ -191,9 +210,9 @@
   <header id="header">
     <p id="score" class="header_top_row">Rubies : </p>
     <div id="bottom_header_row">
-      <p id="hp">5/5</p>
-      <p id="damage">1</p>
-      <p id="range">1</p>
+      <p id="hp">5/5❤</p>
+      <p id="damage">1⚔</p>
+      <p id="range">1🏹</p>
     </div>
   </header>
   <main>
