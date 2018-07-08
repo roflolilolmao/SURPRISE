@@ -1,5 +1,5 @@
 function Player (){
-  this.maxHp = 15;
+  this.maxHp = 5;
   this.hp = this.maxHp;
   this.damages = 1;
   this.range = 1;
@@ -142,21 +142,36 @@ function Player (){
     window.requestAnimationFrame(punchIt);
   };
 
-  this.attack = function (){
+  this.attack = function () {
     this.triggerAttackAnimation();
     let this_ = this;
+<<<<<<< Updated upstream
     
     gPif.play();
     
     let attackIfEnemyInRange = function(targetCell)
     {
+=======
+
+    let attackIfEnemyInRange = function (targetCell) {
+>>>>>>> Stashed changes
       if (gMap.cellContainsEnemy(targetCell))
         this_.findEnemyToHitAndHit(targetCell);
     };
-    
-    attackIfEnemyInRange({x: this.position.x + 1, y: this.position.y});
-    attackIfEnemyInRange({x: this.position.x - 1, y: this.position.y});
-    attackIfEnemyInRange({x: this.position.x, y: this.position.y + 1});
-    attackIfEnemyInRange({x: this.position.x, y: this.position.y - 1});
+
+    for (let i = this.range; i > 0; i--) {
+      let right = {x: this.position.x + i, y: this.position.y};
+      if (!gMap.outOfBounds(right))
+        attackIfEnemyInRange({x: this.position.x + i, y: this.position.y});
+      let left = {x: this.position.x - i, y: this.position.y};
+      if(!gMap.outOfBounds(left))
+        attackIfEnemyInRange(left);
+      let bottom = {x: this.position.x, y: this.position.y + i};
+      if(!gMap.outOfBounds(bottom))
+        attackIfEnemyInRange(bottom);
+      let top = {x: this.position.x, y: this.position.y - i};
+      if(!gMap.outOfBounds(top))
+        attackIfEnemyInRange(top);
+    }
   }
 }
