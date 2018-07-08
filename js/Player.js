@@ -81,7 +81,7 @@ function Player (){
     this.animateFists(container, animationsArr, this.range);
   };
 
-  this.animateFists = function (container, arr, range){
+  this.animateFists = function (container, arr){
     let start = null;
     let pxRange = this.range * parseInt(container.offsetHeight);
     let progress;
