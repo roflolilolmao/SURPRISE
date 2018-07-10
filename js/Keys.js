@@ -20,7 +20,7 @@ document.onkeydown = function (e){
   else if (e.key === 'd'){
     gPlayer.move(1, 0);
   }
-  else if (e.key === 'q'){
+  else if (e.key === 'q' || e.key === 'p'){
     gPlayer.attack();
   }
 };
