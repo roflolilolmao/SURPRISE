@@ -203,7 +203,7 @@
     }
     function handleTransform()
     {
-      gCestPartiEnCouilles=true;
+      gCestPartiEnCouilles = true;
         
       getHandleFunkyTransform();
     
@@ -229,7 +229,7 @@
       
       setTimeout(function()
           {
-            updateFooter('Created by Matt Dirty and roflilolmao');
+            updateFooter('Created by Matt Dirty and roflolilolmao');
             document.getElementById('game_container').style.display = 'none';
             document.getElementById('team_yellow').style.display = 'flex';
           }, 7000);
@@ -273,6 +273,12 @@
   </audio>
   <header id="header">
     <p id="score" class="header_top_row">Rubies : </p>
+    <div>
+      <select id="keyboard_layout" name="keyboard_layout" onchange="updateKeyboardLayout(event)">
+        <option value="qwerty">STANDARD</option>
+        <option value="dvorak">dvorak</option>
+      </select>
+    </div>
     <div id="bottom_header_row">
       <p id="hp">5/5❤</p>
       <p id="damage">1⚔</p>
