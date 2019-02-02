@@ -5,8 +5,39 @@ function updateKeyboardLayout(e)
     gKeyboardLayout = e.target.value;
 }
 
-document.onkeydown = function (e){
+let keyboardLayouts =
+    {
+      'qwerty':
+          {
+            'w': 'up',
+            'a': 'left',
+            's': 'down',
+            'd': 'right',
+            'p': 'hit',
+            'q': 'hit'
+          },
+      'dvorak':
+          {
+            ',': 'up',
+            'a': 'left',
+            'o': 'down',
+            'e': 'right',
+            'l': 'hit',
+            '\'': 'hit'
+          }
+    };
 
+let keyboardInputs =
+    {
+      'up': function () { gPlayer.move(0, -1); },
+      'left': function () { gPlayer.move(-1, 0); },
+      'down': function () { gPlayer.move(0, 1); },
+      'right': function () { gPlayer.move(1, 0); },
+      'hit': function () { gPlayer.attack(); }
+    }
+
+document.onkeydown = function (e)
+{
   if (!gMusicActive)
   {
     gCoolBassLine.loop = true;
@@ -14,26 +45,14 @@ document.onkeydown = function (e){
     
     gMusicActive = true;
   }
-  if (gKeyboardLayout === "qwerty") {
-      if (e.key === 'w') {
-          gPlayer.move(0, -1);
-      }
-      else if (e.key === 's') {
-          gPlayer.move(0, 1);
-      }
-      else if (e.key === 'a') {
-          gPlayer.move(-1, 0);
-      }
-      else if (e.key === 'd') {
-          gPlayer.move(1, 0);
-      }
-      else if (e.key === 'q' || e.key === 'p') {
-          gPlayer.attack();
-      }
-  }
+
+  let keyboardInput = keyboardLayouts[gKeyboardLayout][e.key];
+  if (!(keyboardInput in keyboardInputs))
+    return;
+
+  keyboardInputs[keyboardInput]();
 };
 
 document.onkeyup = function (e)
 {
-
 };
