@@ -220,7 +220,7 @@
     }
     function gameOver()
     {
-      document.onkeydown = function(){};
+      removeAndStopKeyboardActions();
       gMap.setCellValue(gPlayer.position, 'empty');
       document.getElementById('rekt_div').classList.add('anim');
       gRekt.play();
